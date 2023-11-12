@@ -2,8 +2,11 @@
 
 {% block body %}
     {% include 'layout/_parts/_nav.html.twig' %}
+    {{ parent() }}
+    <div class="container mt-4  vh-100">
+        {% block content %}
 
-    {% block content %}
-    {% endblock %}
-   
+        {% endblock %}
+    </div>
+    {% include 'layout/_parts/_footer.html.twig' %}
 {% endblock %}

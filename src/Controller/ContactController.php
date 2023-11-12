@@ -12,7 +12,7 @@ use Symfony\Component\Mime\Email;
 
 class ContactController extends AbstractController
 {
-    #[Route('/contact', name: 'app_contact')]
+    #[Route('/contact', name: 'app_contact_index')]
     public function index(Request $request, MailerInterface $mailer): Response
     {
         $form = $this->createForm(ContactType::class);
