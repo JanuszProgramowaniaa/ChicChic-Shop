@@ -6,18 +6,7 @@
         <div class="row">
             {% for product in items %}
                 <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-body text-center">
-                            <h3>{{ product.name|capitalize }}</h3>
-                            <img src="{{ asset('images/products/' ~ product.id ~ '.jpg') }}" alt="{{ product.name }}" width="200" height="200" class="mx-auto d-block" />
-                            {% set formatted_price = product.price|format_currency('PLN') %}
-                            {% set currency_symbol = 'PLN' %}
-                            {% set price_value = formatted_price|replace({'PLN': ''})|trim %}
-
-                            <p>Price: <span style="color:blue">{{ price_value }} {{ currency_symbol }}<span></p>
-                     
-                        </div>
-                    </div>
+                    {% include 'products/_parts/_product.html.twig' %}
                 </div>
             {% endfor %}
         </div>
