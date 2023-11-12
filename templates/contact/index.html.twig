@@ -1,0 +1,39 @@
+{% extends 'layout/index.html.twig' %}
+
+{% block title %}Hello ContactController!{% endblock %}
+
+
+{% block body %}
+    {{ parent() }}
+    <div class="container mt-4">
+        <h1>Contact Us</h1>
+        <p>Have questions or feedback? Reach out to us using the form or contact information below.</p>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Contact Information</h3>
+                <p>Address: 69 pl. Wolności, Polska</p>
+                <p>Email: {{contact_email}}</p>
+                <p>Phone: +734 967 934</p>
+            </div>
+            <div class="col-md-6">
+                <h3>Contact Form</h3>
+                {{ form_start(contact_form, {'attr': {'class': 'form-group'}}) }}
+                    <div class="mb-3">
+                        {{ form_row(contact_form.email, {'attr': {'class': 'form-control'}}) }}
+                        {% for error in contact_form.email.vars.errors %}
+                            <small class="text-danger">{{ error.message }}</small>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_row(contact_form.message, {'attr': {'class': 'form-control'}}) }}
+                        {% for error in contact_form.message.vars.errors %}
+                            <small class="text-danger">{{ error.message }}</small>
+                        {% endfor %}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                {{ form_end(contact_form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
