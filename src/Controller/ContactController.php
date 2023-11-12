@@ -31,13 +31,8 @@ class ContactController extends AbstractController
     
             $mailer->send($email);
     
-            // Clear form data
-            $form->clear(); // Symfony 5.3 and later
-            // For Symfony versions prior to 5.3, you can reset the form
-            // $form = $this->createForm(ContactType::class);
-    
-            // Redirect or display success message
-            // For example, redirect to the homepage
+            $form->clear(); 
+          
             return $this->redirectToRoute('homepage');
         }
 
