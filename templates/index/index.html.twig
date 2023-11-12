@@ -4,7 +4,56 @@
 
 {% block content %}
     
-    
     <h1 class='d-flex justify-content-center'> Main Page </h1>
-   
+    <h2 class='d-flex justify-content-center'> Latest products </h2>
+    <div id="productSlider" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+    <div class="carousel-inner">
+       {% for key, product in items|batch(3) %}
+            <div class="carousel-item {% if key == 0 %}active{% endif %}">
+                <div class="row">
+                    {% for item in product %}
+                        <div class="col-md-4">
+                            {% include 'products/_parts/_product.html.twig' with {'product': item} %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#productSlider" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#productSlider" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <h2 class='d-flex justify-content-center'> Bestsellers products </h2>
+    <div id="productSlider2" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+    <div class="carousel-inner">
+       {% for key, product in items2|batch(3) %}
+            <div class="carousel-item {% if key == 0 %}active{% endif %}">
+                <div class="row">
+                    {% for item in product %}
+                        <div class="col-md-4">
+                            {% include 'products/_parts/_product.html.twig' with {'product': item} %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#productSlider" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#productSlider" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 {% endblock %}
