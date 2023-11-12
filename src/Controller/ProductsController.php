@@ -7,16 +7,27 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ProductRepository;
 
+
 class ProductsController extends AbstractController
 {
-    #[Route('/products', name: 'app_products_index')]
-    public function index(ProductRepository $productRepository): Response
+    #[Route('/products/{page}', name: 'app_products_index')]
+    public function index(ProductRepository $productRepository, int $page = 1, int $itemPerPage = 6): Response
     {
+        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage);
 
-        $products = $productRepository->findAll();
-        
+        $totalProducts = count($paginatedProducts);
+        $maxPage = ceil($totalProducts / $itemPerPage);
+
+        if ($page > $maxPage) {
+            return $this->redirectToRoute('app_products_index', ['page' => 1]);
+        }
+
         return $this->render('products/index.html.twig', [
-            'items' => $products,
+            'items' => $paginatedProducts,
+            'page' => $page,
+            'itemPerPage' => $itemPerPage,
+            'totalProducts' => $totalProducts,
+            'maxPage' => $maxPage
         ]);
     }
 

@@ -2,17 +2,18 @@
 {% block content %}
     <h1 class='d-flex justify-content-center'> Products </h1>
 
-  
-        <div class="row">
-            {% for product in items %}
-                <div class="col-md-4">
-                    <a style="text-decoration: none;" href = '{{ path('app_products_display', {'productId': product.id}) }}'>
-                        {% include 'products/_parts/_product.html.twig' %}
-                    </a>
-                </div>
-            {% endfor %}
-        </div>
-    
+    <div class="row">
+        {% for product in items %}
+            <div class="col-md-4">
+                <a style="text-decoration: none;" href = '{{ path('app_products_display', {'productId': product.id}) }}'>
+                    {% include 'products/_parts/_product.html.twig' %}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% include 'products/_parts/_pagination.html.twig' %}
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var images = document.getElementsByTagName('img');

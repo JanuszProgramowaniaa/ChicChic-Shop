@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * @extends ServiceEntityRepository<Product>
@@ -20,6 +21,19 @@ class ProductRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Product::class);
     }
+
+    public function findAllPaginated(int $page = 1, int $itemPerPage = 6)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->setFirstResult($itemPerPage * ($page - 1))
+            ->setMaxResults($itemPerPage)
+            ->getQuery();
+
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+
+        return $paginator;
+    }
+
 
 //    /**
 //     * @return Product[] Returns an array of Product objects
