@@ -15,6 +15,13 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    private ?string $symbol = null;
+
+    #[ORM\ManyToOne(inversedBy: 'category')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?category $category = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
@@ -23,12 +30,34 @@ class Product
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $symbol = null;
-
+ 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getSymbol(): ?string
+    {
+        return $this->symbol;
+    }
+
+    public function setSymbol(string $symbol): static
+    {
+        $this->symbol = $symbol;
+
+        return $this;
+    }
+
+    public function getcategory(): ?category
+    {
+        return $this->category;
+    }
+
+    public function setcategory(?category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
     }
 
     public function getName(): ?string
@@ -67,15 +96,5 @@ class Product
         return $this;
     }
 
-    public function getSymbol(): ?string
-    {
-        return $this->symbol;
-    }
-
-    public function setSymbol(string $symbol): static
-    {
-        $this->symbol = $symbol;
-
-        return $this;
-    }
+   
 }
