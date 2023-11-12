@@ -19,7 +19,10 @@ class ProductsController extends AbstractController
         $totalProducts = count($paginatedProducts);
         $maxPage = ceil($totalProducts / $itemPerPage);
 
-      
+        if ($page != 1  && $maxPage < $page ) {
+            return $this->redirectToRoute('app_products_index', ['page'=>1]);
+        }
+
         return $this->render('products/index.html.twig', [
             'items' => $paginatedProducts,
             'page' => $page,
@@ -33,13 +36,14 @@ class ProductsController extends AbstractController
     public function search(Request $request, ProductRepository $productRepository, string $slug, int $page = 1, int $itemPerPage = 6): Response
     {
         $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, $slug);
-
         $totalProducts = count($paginatedProducts);
         
-       
         $maxPage = ceil($totalProducts / $itemPerPage );
+
+        if ($page != 1  && $maxPage < $page ) {
+            return $this->redirectToRoute('app_products_search', ['page'=>1, 'slug'=>$slug]);
+        }
         
-       
         return $this->render('products/index.html.twig', [
             'items' => $paginatedProducts,
             'page' => $page,
