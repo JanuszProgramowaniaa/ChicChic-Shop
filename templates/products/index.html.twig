@@ -1,20 +1,41 @@
 {% extends 'layout/index.html.twig' %}
 {% block content %}
-    <h1 class='d-flex justify-content-center'> Produkty </h1>
+    <h1 class='d-flex justify-content-center'> Products </h1>
 
     <div class="container">
         <div class="row">
             {% for product in items %}
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm">
-                        <div class="card-body">
-                            <h3>{{ product.name }}</h3>
-                            <p>Cena: {{ product.price }}</p>
-                            <p>{{ product.description }}</p>
+                        <div class="card-body text-center">
+                            <h3>{{ product.name|capitalize }}</h3>
+                            <img src="{{ asset('images/products/' ~ product.id ~ '.jpg') }}" alt="{{ product.name }}" width="200" height="200" class="mx-auto d-block" />
+                            {% set formatted_price = product.price|format_currency('PLN') %}
+                            {% set currency_symbol = 'PLN' %}
+                            {% set price_value = formatted_price|replace({'PLN': ''})|trim %}
+
+                            <p>Price: <span style="color:blue">{{ price_value }} {{ currency_symbol }}<span></p>
+                     
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var images = document.getElementsByTagName('img');
+            for (var i = 0; i < images.length; i++) {
+                images[i].onerror = function() {
+                    this.onerror = null; // Zapobiegamy pętli, jeśli obraz "No-Image.jpg" również nie istnieje
+                    this.src = 'images/products/No-Image.jpg'; // Podmiana na alternatywny obraz w przypadku błędu
+                };
+            }
+        });
+
+    </script>
 {% endblock %}
+
+
+
+
