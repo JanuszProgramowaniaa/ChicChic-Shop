@@ -19,7 +19,7 @@ class Product
 
     #[ORM\ManyToOne(inversedBy: 'category')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?category $category = null;
+    private ?Category $category = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
