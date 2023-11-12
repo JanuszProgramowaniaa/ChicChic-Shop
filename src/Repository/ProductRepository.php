@@ -22,17 +22,24 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function findAllPaginated(int $page = 1, int $itemPerPage = 6)
+    public function findAllPaginated(int $page = 1, int $itemPerPage = 6, ?string $searchTerm = null)
     {
-        $query = $this->createQueryBuilder('p')
-            ->setFirstResult($itemPerPage * ($page - 1))
-            ->setMaxResults($itemPerPage)
-            ->getQuery();
+        $query = $this->createQueryBuilder('p');
+       
+        if ($searchTerm) {
+            $query->where('LOWER(p.name) LIKE :searchTerm')
+            ->setParameter('searchTerm', '%' . strtolower($searchTerm) . '%');
+        }
 
+        $query->setFirstResult($itemPerPage * ($page - 1))
+            ->setMaxResults($itemPerPage);
+    
         $paginator = new Paginator($query, $fetchJoinCollection = true);
-
+        
         return $paginator;
     }
+
+    
 
 
 //    /**

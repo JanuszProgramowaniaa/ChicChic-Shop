@@ -1,23 +1,53 @@
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item {% if page == 1 %}disabled{% endif %}">
-            <a class="page-link" href="{{ path('app_products_index', {'page': 1}) }}">First</a>
-        </li>
-        <li class="page-item {% if page == 1 %}disabled{% endif %}">
-            <a class="page-link" href="{{ path('app_products_index', {'page': page - 1}) }}">Previous</a>
-        </li>
+{% if totalProducts > 0 %}
+    {% set route_name =  app.request.attributes.get('_route')%}
+    {% if route_name == 'app_products_search' %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                    <a class="page-link" href="{{ path('app_products_search', {'page': 1, 'slug': slug}) }}">First</a>
+                </li>
+                <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                    <a class="page-link" href="{{ path('app_products_search', {'page': page - 1, 'slug': slug}) }}">Previous</a>
+                </li>
 
-        {% for pageNumber in 1..maxPage %}
-            <li class="page-item {% if pageNumber == page %}active{% endif %}">
-                <a class="page-link" href="{{ path('app_products_index', {'page': pageNumber}) }}">{{ pageNumber }}</a>
-            </li>
-        {% endfor %}
+                {% for pageNumber in 1..maxPage %}
+                    <li class="page-item {% if pageNumber == page %}active{% endif %}">
+                        <a class="page-link" href="{{ path('app_products_search', {'page': pageNumber, 'slug': slug}) }}">{{ pageNumber }}</a>
+                    </li>
+                {% endfor %}
 
-        <li class="page-item {% if page == maxPage %}disabled{% endif %}">
-            <a class="page-link" href="{{ path('app_products_index', {'page': page + 1}) }}">Next</a>
-        </li>
-        <li class="page-item {% if page == maxPage %}disabled{% endif %}">
-            <a class="page-link" href="{{ path('app_products_index', {'page': maxPage}) }}">Last</a>
-        </li>
-    </ul>
-</nav>
+                <li class="page-item {% if page == maxPage %}disabled{% endif %}">
+                    <a class="page-link" href="{{ path('app_products_search', {'page': page + 1, 'slug': slug}) }}">Next</a>
+                </li>
+                <li class="page-item {% if page == maxPage %}disabled{% endif %}">
+                    <a class="page-link" href="{{ path('app_products_search', {'page': maxPage, 'slug': slug}) }}">Last</a>
+                </li>
+            </ul>
+        </nav>
+    {% else %}
+          <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                    <a class="page-link" href="{{ path('app_products_index', {'page': 1}) }}">First</a>
+                </li>
+                <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                    <a class="page-link" href="{{ path('app_products_index', {'page': page - 1}) }}">Previous</a>
+                </li>
+
+                {% for pageNumber in 1..maxPage %}
+                    <li class="page-item {% if pageNumber == page %}active{% endif %}">
+                        <a class="page-link" href="{{ path('app_products_index', {'page': pageNumber}) }}">{{ pageNumber }}</a>
+                    </li>
+                {% endfor %}
+
+                <li class="page-item {% if page == maxPage %}disabled{% endif %}">
+                    <a class="page-link" href="{{ path('app_products_index', {'page': page + 1}) }}">Next</a>
+                </li>
+                <li class="page-item {% if page == maxPage %}disabled{% endif %}">
+                    <a class="page-link" href="{{ path('app_products_index', {'page': maxPage}) }}">Last</a>
+                </li>
+            </ul>
+        </nav>
+    {% endif %}
+
+{% endif %}
