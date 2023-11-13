@@ -1,7 +1,10 @@
- <a style="text-decoration: none;" href = '{{ path('app_products_display', {'productId': product.id}) }}'>
+<a style="text-decoration: none;" href='{{ path('app_products_display', {'productId': product.id}) }}'>
     <div class="card mb-4 shadow-sm">
         <div class="card-body text-center">
-            <h3>
+           {% if product.isbestseller == true %}
+                <div style="font-size:10px;background-color: #3498db; color: white; padding: 3px 10px; border-radius: 3px; position: absolute; top: 0; left: 0; width: 25%; margin: 5px;">Bestseller</div>
+            {% endif %}
+            <h3 style="margin-top: 10px;">
                 {% if product.name|length > 25 %}
                     {{ product.name|slice(0, 25) }}...
                 {% else %}
@@ -13,7 +16,7 @@
             {% set currency_symbol = 'PLN' %}
             {% set price_value = formatted_price|replace({'PLN': ''})|trim %}
 
-            <p>Price: <span style="color:blue">{{ price_value }} {{ currency_symbol }}<span></p>
+            <p>Price: <span style="color:blue">{{ price_value }} {{ currency_symbol }}</span></p>
         </div>
     </div>
 </a>

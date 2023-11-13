@@ -30,6 +30,9 @@ class Product
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $is_bestseller = null;
+
  
     public function getId(): ?int
     {
@@ -92,6 +95,18 @@ class Product
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function isIsBestseller(): ?bool
+    {
+        return $this->is_bestseller;
+    }
+
+    public function setIsBestseller(bool $is_bestseller): static
+    {
+        $this->is_bestseller = $is_bestseller;
 
         return $this;
     }
