@@ -22,7 +22,7 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function findAllPaginated(int $page = 1, int $itemPerPage = 6, ?string $searchTerm = null)
+    public function findAllPaginated(int $page = 1, int $itemPerPage = 6, ?string $searchTerm = null, string $sortBy = 'name_desc')
     {
         $query = $this->createQueryBuilder('p');
        
@@ -30,6 +30,10 @@ class ProductRepository extends ServiceEntityRepository
             $query->where('LOWER(p.name) LIKE :searchTerm')
             ->setParameter('searchTerm', '%' . strtolower($searchTerm) . '%');
         }
+        
+        $sortBy = explode('_', $sortBy);
+
+        $query->orderBy("p.{$sortBy[0]}", $sortBy[1]);
 
         $query->setFirstResult($itemPerPage * ($page - 1))
             ->setMaxResults($itemPerPage);

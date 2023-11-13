@@ -5,7 +5,20 @@
     {% if items is empty %}
     <h2 class='d-flex justify-content-center'>Brak dostępnych przedmiotów</h2>
     {% else %}
+       <div class="row align-items-center mb-2">
+            <label for="sort" class="col-auto me-2">Sort by:</label>
+            <div class="col-auto">
+                {% set selectedSort = app.request.cookies.get('selectedSort') %}
+                <select class="form-select" name="sort" id="sort">
+                    <option value="price_asc" {% if selectedSort == 'price_asc' %} selected {% endif %}>Price: Low to High</option>
+                    <option value="price_desc" {% if selectedSort == 'price_desc' %} selected {% endif %}>Price: High to Low</option>
+                    <option value="name_asc" {% if selectedSort == 'name_asc' %} selected {% endif %}>Product Names: A to Z</option>
+                    <option value="name_desc" {% if selectedSort == 'name_desc' %} selected {% endif %}>Product Names: Z to A</option>
+                </select>
+            </div>
+        </div>
         <div class="row">
+       
             {% for product in items %}
                 <div class="col-md-4">
                     {% include 'products/_parts/_product.html.twig' %}
@@ -18,14 +31,32 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var images = document.getElementsByTagName('img');
-            for (var i = 0; i < images.length; i++) {
+            const images = document.getElementsByTagName('img');
+            for (let i = 0; i < images.length; i++) {
                 images[i].onerror = function() {
-                    this.onerror = null; // Zapobiegamy pętli, jeśli obraz "No-Image.jpg" również nie istnieje
-                    this.src = 'images/products/No-Image.jpg'; // Podmiana na alternatywny obraz w przypadku błędu
+                    this.onerror = null;
+                    this.src = 'images/products/No-Image.jpg'; 
                 };
             }
+
+            const selectElement = document.getElementById("sort");
+
+            selectElement.addEventListener("change", () => {
+                const selectedValue = selectElement.options[selectElement.selectedIndex].value;
+                const date = new Date();
+
+                date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000); 
+                const expires = `expires=${date.toUTCString()}`;
+                
+                document.cookie = `selectedSort=${selectedValue}; ${expires}; path=/`;
+                location.reload();
+            });
+
+
         });
+
+
+
 
     </script>
 {% endblock %}

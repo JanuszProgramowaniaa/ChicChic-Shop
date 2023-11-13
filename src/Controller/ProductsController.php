@@ -14,7 +14,9 @@ class ProductsController extends AbstractController
     #[Route('/products/{page}', name: 'app_products_index')]
     public function index(Request $request, ProductRepository $productRepository, int $page = 1, int $itemPerPage = 6): Response
     {
-        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage);
+        $sortBy = $request->cookies->get('selectedSort', 'name_desc');
+
+        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, null, $sortBy);
 
         $totalProducts = count($paginatedProducts);
         $maxPage = ceil($totalProducts / $itemPerPage);
@@ -35,7 +37,9 @@ class ProductsController extends AbstractController
     #[Route('/products/search/{slug}/{page}', name: 'app_products_search', defaults: ['page' => 1])]
     public function search(Request $request, ProductRepository $productRepository, string $slug, int $page = 1, int $itemPerPage = 6): Response
     {
-        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, $slug);
+        $sortBy = $request->cookies->get('selectedSort', 'name_desc');
+
+        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, $slug, $sortBy);
         $totalProducts = count($paginatedProducts);
         
         $maxPage = ceil($totalProducts / $itemPerPage );
