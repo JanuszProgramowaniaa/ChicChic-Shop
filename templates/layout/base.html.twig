@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}ChicChic Shop{% endblock %}</title>
@@ -13,7 +13,19 @@
     </head>
     <body>
         {% block body %}
-         {% include 'layout/_parts/_alert.html.twig' %}
+            {% include 'layout/_parts/_nav.html.twig' %}
+            {% include 'layout/_parts/_alert.html.twig' %}
+            {% set breadcrumbs = knp_menu_get('main', [], {'matching': 'exact', 'renderRoot': false}) %}
+            {{ knp_menu_render(breadcrumbs) }}
+            <div class="container mt-4  vh-100">
+                {% block content %}
+
+                {% endblock %}
+            </div>
+            {% include 'layout/_parts/_footer.html.twig' %}
+            <script src="js/products/layout/_parts/_alert.js"></script>
         {% endblock %}
     </body>
 </html>
+
+
