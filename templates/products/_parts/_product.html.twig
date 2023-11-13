@@ -8,7 +8,7 @@
                     {{ product.name|capitalize }}
                 {% endif %}
             </h3>
-            <img src="{{ asset('images/products/' ~ product.id ~ '.jpg') }}" alt="{{ product.name }}" width="200" height="200" class="mx-auto d-block" />
+            <img src="{{ asset('images/products/' ~ product.id ~ '.png') }}" alt="{{ product.name }}" width="200" height="200" class="mx-auto d-block" />
             {% set formatted_price = product.price|format_currency('PLN') %}
             {% set currency_symbol = 'PLN' %}
             {% set price_value = formatted_price|replace({'PLN': ''})|trim %}
