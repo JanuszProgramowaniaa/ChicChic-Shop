@@ -27,7 +27,8 @@ class ProductRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('p');
        
         if ($searchTerm) {
-            $query->where('LOWER(p.name) LIKE :searchTerm')
+            $searchTerm = strtolower($searchTerm);
+            $query->where('LOWER(p.name) LIKE :searchTerm or LOWER(p.symbol) LIKE :searchTerm ')
             ->setParameter('searchTerm', '%' . strtolower($searchTerm) . '%');
         }
 
