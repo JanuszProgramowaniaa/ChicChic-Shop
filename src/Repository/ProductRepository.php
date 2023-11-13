@@ -47,6 +47,15 @@ class ProductRepository extends ServiceEntityRepository
         return $paginator;
     }
 
+    public function findBestsellers(int $limit = 6)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.is_bestseller = true')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
     
 
 

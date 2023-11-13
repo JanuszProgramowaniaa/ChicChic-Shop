@@ -14,7 +14,7 @@ class IndexController extends AbstractController
     {
 
         $paginatedProducts = $productRepository->findAllPaginated(2, 6);
-        $paginatedProducts2 = $productRepository->findAllPaginated(1, 6);
+        $paginatedProducts2 = $productRepository->findBestsellers(6);
 
         return $this->render('index/index.html.twig', [
             'items' => $paginatedProducts,
