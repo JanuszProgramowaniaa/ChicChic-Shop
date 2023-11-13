@@ -15,8 +15,15 @@ class ProductsController extends AbstractController
     public function index(Request $request, ProductRepository $productRepository, int $page = 1, int $itemPerPage = 6): Response
     {
         $sortBy = $request->cookies->get('selectedSort', 'name_desc');
+        $filterBestseller = $request->cookies->get('filterBestseller', 0);
 
-        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, null, $sortBy);
+        $filter = [];
+      
+        if($filterBestseller){
+            $filter['is_bestseller'] = $filterBestseller;
+        }
+       
+        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, null, $filter, $sortBy);
 
         $totalProducts = count($paginatedProducts);
         $maxPage = ceil($totalProducts / $itemPerPage);
@@ -38,8 +45,15 @@ class ProductsController extends AbstractController
     public function search(Request $request, ProductRepository $productRepository, string $slug, int $page = 1, int $itemPerPage = 6): Response
     {
         $sortBy = $request->cookies->get('selectedSort', 'name_desc');
+        $filterBestseller = $request->cookies->get('filterBestseller', 0);
 
-        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, $slug, $sortBy);
+        $filter = [];
+
+        if($filterBestseller){
+            $filter['is_bestseller'] = $filterBestseller;
+        }
+
+        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, $slug, $filter, $sortBy);
         $totalProducts = count($paginatedProducts);
         
         $maxPage = ceil($totalProducts / $itemPerPage );

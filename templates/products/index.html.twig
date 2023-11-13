@@ -16,6 +16,11 @@
                     <option value="name_desc" {% if selectedSort == 'name_desc' %} selected {% endif %}>Product Names: Z to A</option>
                 </select>
             </div>
+            <div class='d-flex align-items-center mt-1'>
+                {% set filterBestseller = app.request.cookies.get('filterBestseller') %}
+                <input type="checkbox" id="bestsellers" name="bestsellers" value="1" style="margin-right: 8px;" {% if filterBestseller == '1' %} checked {% endif %}>
+                <label for="bestsellers" style="margin-bottom: 0;"> Bestsellers</label>
+            </div>
         </div>
         <div class="row">
        
@@ -52,11 +57,25 @@
                 location.reload();
             });
 
+            const checkbox = document.getElementById('bestsellers');
+
+            checkbox.addEventListener('click', function(event) {
+                if (checkbox.checked) {
+                    const date = new Date();
+
+                    date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000); 
+                    const expires = `expires=${date.toUTCString()}`;
+
+                    document.cookie = `filterBestseller=1; ${expires}; path=/`;
+                    location.reload();
+                } else {
+                    document.cookie = 'filterBestseller=0; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                    location.reload();
+                }
+            });
+
 
         });
-
-
-
 
     </script>
 {% endblock %}
