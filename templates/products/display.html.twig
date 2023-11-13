@@ -1,14 +1,14 @@
 {% extends 'layout/index.html.twig' %}
 {% block title %}Chick Chick Shop - {{ product.name }}{% endblock %}
 {% block content %}
-    <div class="container mt-4">
-        <h1 class="text-center mb-4">Product Information</h1>
+    <div class="container mt-5">
         <div class="row">
             <div class="col-md-4">
                 <img src="{{ asset('images/products/' ~ product.id ~ '.png') }}" alt="{{ product.name }}" class="img-fluid" />
             </div>
             <div class="col-md-8">
                 <h3>{{ product.name }}</h3>
+                <small>Symbol: {{ product.symbol }} </small>
                 <h4 style='color:red;'>{{ product.category.name }}</h4>
 
                 {% set formatted_price = product.price|format_currency('PLN') %}
@@ -16,6 +16,16 @@
                 {% set price_value = formatted_price|replace({'PLN': ''})|trim %}
                 <p class="lead">Price: {{ price_value }} {{ currency_symbol }}</p>
                 <p>{{ product.description }}</p>
+
+                <div class="form-inline mt-3">
+                    <label for="quantity" class="mr-2">Quantity:</label>
+                    <div class="row">
+                        <div class="col-3">
+                            <input type="number" id="quantity" name="quantity" class="form-control mr-2" value="1" min="1" oninput="validity.valid||(value='');">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary mt-2" id="addToCartBtn">Add to Cart</button>
+                </div>
             </div>
         </div>
     </div>
