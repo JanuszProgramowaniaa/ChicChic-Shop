@@ -49,11 +49,30 @@ class ProductRepository extends ServiceEntityRepository
 
     public function findBestsellers(int $limit = 6)
     {
-        return $this->createQueryBuilder('p')
-            ->where('p.is_bestseller = true')
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult();
+        $queryBuilder = $this->createQueryBuilder('p');
+
+        $queryBuilder->where('p.is_bestseller = true')
+            ->setMaxResults($limit);
+            
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function findLatests(int $limit = 6)
+    {
+        $startDate = (new \DateTime())->sub(new \DateInterval('P30D')); 
+        $startDate->setTime(0, 0, 0); 
+        
+        $endDate = new \DateTime(); 
+        $endDate->setTime(23, 59, 59);
+       
+        $queryBuilder = $this->createQueryBuilder('p');
+     
+        $queryBuilder->where('p.date_added BETWEEN :start AND :end')
+            ->setParameter('start', $startDate) 
+            ->setParameter('end', $endDate) 
+            ->setMaxResults($limit);
+    
+        return $queryBuilder->getQuery()->getResult();
     }
 
     

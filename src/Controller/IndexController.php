@@ -13,12 +13,12 @@ class IndexController extends AbstractController
     public function index(ProductRepository $productRepository): Response
     {
 
-        $paginatedProducts = $productRepository->findAllPaginated(2, 6);
-        $paginatedProducts2 = $productRepository->findBestsellers(6);
+        $latestProducts = $productRepository->findLatests(6);
+        $bestsellerProducts = $productRepository->findBestsellers(6);
 
         return $this->render('index/index.html.twig', [
-            'items' => $paginatedProducts,
-            'items2' => $paginatedProducts2
+            'items' => $latestProducts,
+            'items2' => $bestsellerProducts
         ]);
     }
 }

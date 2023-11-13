@@ -1,17 +1,20 @@
-<a style="text-decoration: none;" href='{{ path('app_products_display', {'productId': product.id}) }}'>
+<a style="text-decoration: none; position: relative;" href='{{ path('app_products_display', {'productId': product.id}) }}'>
     <div class="card mb-4 shadow-sm">
-        <div class="card-body text-center">
-           {% if product.isbestseller == true %}
-                <div style="font-size:10px;background-color: #3498db; color: white; padding: 3px 10px; border-radius: 3px; position: absolute; top: 0; left: 0; width: 25%; margin: 5px;">Bestseller</div>
-            {% endif %}
+        <div class="card-body text-center" style="position: relative;">
             <h3 style="margin-top: 10px;">
+                {% if product.isbestseller == true %}
+                    <div style="font-size:12px; background-color:#3498db; color:white; padding:3px 10px; border-radius: 3px; position: absolute; top: 5px; left: 5px;">Bestseller</div>
+                {% endif %}
+                {% if product.dateadded >= (date('now')|date_modify('-1 month')) %}
+                    <div style="font-size:12px; background-color:yellow; color:black; padding:3px 10px; border-radius:3px; position: absolute; top: 5px; left: {% if product.isbestseller == true %} 80px {% else %} 5px {% endif %};">Latest</div>
+                {% endif %}
                 {% if product.name|length > 25 %}
                     {{ product.name|slice(0, 25) }}...
                 {% else %}
                     {{ product.name|capitalize }}
                 {% endif %}
             </h3>
-            <small>Symbol: {{product.symbol}} </small>
+            <small>Symbol: {{ product.symbol }} </small>
             <img src="{{ asset('images/products/' ~ product.id ~ '.png') }}" alt="{{ product.name }}" width="200" height="200" class="mx-auto d-block" />
             {% set formatted_price = product.price|format_currency('PLN') %}
             {% set currency_symbol = 'PLN' %}

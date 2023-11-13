@@ -33,6 +33,9 @@ class Product
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private ?bool $is_bestseller = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ["default" => "CURRENT_TIMESTAMP"])]
+    private ?\DateTimeInterface $date_added = null;
+
  
     public function getId(): ?int
     {
@@ -107,6 +110,18 @@ class Product
     public function setIsBestseller(bool $is_bestseller): static
     {
         $this->is_bestseller = $is_bestseller;
+
+        return $this;
+    }
+
+    public function getDateAdded(): ?\DateTimeInterface
+    {
+        return $this->date_added;
+    }
+
+    public function setDateAdded(\DateTimeInterface $date_added): static
+    {
+        $this->date_added = $date_added;
 
         return $this;
     }
