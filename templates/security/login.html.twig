@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+         
+
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <h1 class="text-center my-4">You are logged</h1>
+                    <p class="d-flex justify-content-center flex-column align-items-center">
+                        <span class="mb-2">You are logged in as {{ app.user.userIdentifier }}</span>
+                        <div class="d-flex justify-content-center">
+                            <a href="{{ path('app_index') }}" class="btn btn-primary btn-m me-5">Shop</a>
+                            <a href="{{ path('app_logout') }}" class="btn btn-primary btn-m ">Logout</a>
+                        </div>
+                    </p>
+                {% else %}
+                    <h1 class="text-center my-4">Please sign in</h1>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="inputEmail" class="form-label">Email</label>
+                            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputPassword" class="form-label">Password</label>
+                            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                        </div>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        <p class=" text-center">Don't have an account? <a href="{{ path('app_register') }}">Sign up!</a></p>
+                        <button class="btn btn-lg btn-primary" type="submit">
+                            Sign in
+                        </button>
+                    </form>
+
+                {% endif %}
+
+            
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}
