@@ -17,8 +17,8 @@ class IndexController extends AbstractController
         $bestsellerProducts = $productRepository->findBestsellers(6);
 
         return $this->render('index/index.html.twig', [
-            'items' => $latestProducts,
-            'items2' => $bestsellerProducts
+            'latestProducts' => $latestProducts,
+            'bestsellerProducts' => $bestsellerProducts
         ]);
     }
 }

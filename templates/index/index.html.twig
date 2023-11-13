@@ -6,9 +6,9 @@
     
     <h1 class='d-flex justify-content-center'> Main Page </h1>
     <h2 class='d-flex justify-content-center'> Latest products </h2>
-    <div id="productSlider" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+    <div id="productSlider" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
     <div class="carousel-inner">
-       {% for key, product in items|batch(3) %}
+       {% for key, product in latestProducts|batch(3) %}
             <div class="carousel-item {% if key == 0 %}active{% endif %}">
                 <div class="row">
                     {% for item in product %}
@@ -31,9 +31,9 @@
     </div>
 
     <h2 class='d-flex justify-content-center'> Bestsellers products </h2>
-    <div id="productSlider2" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+    <div id="productSlider2" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
     <div class="carousel-inner">
-       {% for key, product in items2|batch(3) %}
+       {% for key, product in bestsellerProducts|batch(3) %}
             <div class="carousel-item {% if key == 0 %}active{% endif %}">
                 <div class="row">
                     {% for item in product %}
