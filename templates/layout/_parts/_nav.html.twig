@@ -16,7 +16,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ path('app_products_index') }}">All Products</a>
                         {% for category in categories %}
-                            <a class="dropdown-item" href="{{ path('app_products_index', {'category': category.id}) }}">
+                            <a class="dropdown-item" href="{{ path('app_products_category', {'categoryId': category.id}) }}">
                                 {{ category.name }}
                             </a>
                         {% endfor %}

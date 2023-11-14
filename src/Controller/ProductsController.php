@@ -25,7 +25,7 @@ class ProductsController extends AbstractController
             $filter['is_bestseller'] = $filterBestseller;
         }
        
-        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, null, $filter, $sortBy);
+        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, null, null, $filter, $sortBy);
 
         $totalProducts = count($paginatedProducts);
         $maxPage = ceil($totalProducts / $itemPerPage);
@@ -55,8 +55,53 @@ class ProductsController extends AbstractController
         ]);
     }
 
+    #[Route('/products/category/{categoryId}/{page}', name: 'app_products_category')]
+    public function productsCategory(Request $request, ProductRepository $productRepository, CategoryRepository $categoryRepository, int $categoryId, int $page = 1, int $itemPerPage = 6): Response
+    {
+        $sortBy = $request->cookies->get('selectedSort', 'name_desc');
+        $filterBestseller = $request->cookies->get('filterBestseller', 0);
+
+        $filter = [];
+      
+        if($filterBestseller){
+            $filter['is_bestseller'] = $filterBestseller;
+        }
+       
+        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, $categoryId, null,  $filter, $sortBy);
+
+        $totalProducts = count($paginatedProducts);
+        $maxPage = ceil($totalProducts / $itemPerPage);
+
+        if ($page != 1  && $maxPage < $page ) {
+            return $this->redirectToRoute('app_products_category', ['page'=>1]);
+        }
+
+        $cache = new FilesystemAdapter();
+        $cacheTime = 3600;
+
+        $categories = $cache->get('categories_Cache', function (ItemInterface $item) use ($cacheTime, $categoryRepository): ?array {
+            $item->expiresAfter($cacheTime);
+        
+            $categoryProducts = $categoryRepository->findAll();
+        
+            return  $categoryProducts;
+        });
+
+        return $this->render('products/index.html.twig', [
+            'items' => $paginatedProducts,
+            'page' => $page,
+            'itemPerPage' => $itemPerPage,
+            'totalProducts' => $totalProducts,
+            'maxPage' => $maxPage,
+            'categoryId' => $categoryId,
+            'categories' => $categories,
+        ]);
+    }
+
+
+
     #[Route('/products/search/{slug}/{page}', name: 'app_products_search', defaults: ['page' => 1])]
-    public function search(Request $request, ProductRepository $productRepository, string $slug, int $page = 1, int $itemPerPage = 6): Response
+    public function search(Request $request, ProductRepository $productRepository,  CategoryRepository $categoryRepository, string $slug, int $page = 1, int $itemPerPage = 6): Response
     {
         $sortBy = $request->cookies->get('selectedSort', 'name_desc');
         $filterBestseller = $request->cookies->get('filterBestseller', 0);
@@ -67,7 +112,7 @@ class ProductsController extends AbstractController
             $filter['is_bestseller'] = $filterBestseller;
         }
 
-        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, $slug, $filter, $sortBy);
+        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, null, $slug, $filter, $sortBy);
         $totalProducts = count($paginatedProducts);
         
         $maxPage = ceil($totalProducts / $itemPerPage );
@@ -75,6 +120,17 @@ class ProductsController extends AbstractController
         if ($page != 1  && $maxPage < $page ) {
             return $this->redirectToRoute('app_products_search', ['page'=>1, 'slug'=>$slug]);
         }
+
+        $cache = new FilesystemAdapter();
+        $cacheTime = 3600;
+
+        $categories = $cache->get('categories_Cache', function (ItemInterface $item) use ($cacheTime, $categoryRepository): ?array {
+            $item->expiresAfter($cacheTime);
+        
+            $categoryProducts = $categoryRepository->findAll();
+        
+            return  $categoryProducts;
+        });
         
         return $this->render('products/index.html.twig', [
             'items' => $paginatedProducts,
@@ -82,7 +138,8 @@ class ProductsController extends AbstractController
             'itemPerPage' => $itemPerPage,
             'totalProducts' => $totalProducts,
             'maxPage' => $maxPage,
-            'slug' => $slug
+            'slug' => $slug,
+            'categories' => $categories
         ]);
     }
 

@@ -24,27 +24,52 @@
                 </li>
             </ul>
         </nav>
-    {% else %}
-          <nav aria-label="Page navigation">
+    {% elseif route_name == 'app_products_category' %}
+        <nav aria-label="Page navigation">
             <ul class="pagination">
                 <li class="page-item {% if page == 1 %}disabled{% endif %}">
-                    <a class="page-link" href="{{ path('app_products_index', {'page': 1}) }}">First</a>
+                    <a class="page-link" href="{{ path('app_products_category', {'page': 1, 'categoryId': categoryId}) }}">First</a>
                 </li>
                 <li class="page-item {% if page == 1 %}disabled{% endif %}">
-                    <a class="page-link" href="{{ path('app_products_index', {'page': page - 1}) }}">Previous</a>
+                    <a class="page-link" href="{{ path('app_products_category', {'page': page - 1, 'categoryId': categoryId}) }}">Previous</a>
                 </li>
 
                 {% for pageNumber in 1..maxPage %}
                     <li class="page-item {% if pageNumber == page %}active{% endif %}">
-                        <a class="page-link" href="{{ path('app_products_index', {'page': pageNumber}) }}">{{ pageNumber }}</a>
+                        <a class="page-link" href="{{ path('app_products_category', {'page': pageNumber, 'categoryId': categoryId}) }}">{{ pageNumber }}</a>
                     </li>
                 {% endfor %}
 
                 <li class="page-item {% if page == maxPage %}disabled{% endif %}">
-                    <a class="page-link" href="{{ path('app_products_index', {'page': page + 1}) }}">Next</a>
+                    <a class="page-link" href="{{ path('app_products_category', {'page': page + 1,'categoryId': categoryId}) }}">Next</a>
                 </li>
                 <li class="page-item {% if page == maxPage %}disabled{% endif %}">
-                    <a class="page-link" href="{{ path('app_products_index', {'page': maxPage}) }}">Last</a>
+                    <a class="page-link" href="{{ path('app_products_category', {'page': maxPage, 'categoryId': categoryId}) }}">Last</a>
+                </li>
+            </ul>
+        </nav>
+    {% else %}
+    
+         <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                    <a class="page-link" href="{{ path(route_name, {'page': 1}) }}">First</a>
+                </li>
+                <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                    <a class="page-link" href="{{ path(route_name, {'page': page - 1}) }}">Previous</a>
+                </li>
+
+                {% for pageNumber in 1..maxPage %}
+                    <li class="page-item {% if pageNumber == page %}active{% endif %}">
+                        <a class="page-link" href="{{ path(route_name, {'page': pageNumber}) }}">{{ pageNumber }}</a>
+                    </li>
+                {% endfor %}
+
+                <li class="page-item {% if page == maxPage %}disabled{% endif %}">
+                    <a class="page-link" href="{{ path(route_name, {'page': page + 1}) }}">Next</a>
+                </li>
+                <li class="page-item {% if page == maxPage %}disabled{% endif %}">
+                    <a class="page-link" href="{{ path(route_name, {'page': maxPage}) }}">Last</a>
                 </li>
             </ul>
         </nav>

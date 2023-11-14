@@ -22,7 +22,7 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function findAllPaginated(int $page = 1, int $itemPerPage = 6, ?string $searchTerm = null, array $filter = [], string $sortBy = 'name_desc')
+    public function findAllPaginated(int $page = 1, int $itemPerPage = 6, ?int $categoryId = null, ?string $searchTerm = null, array $filter = [], string $sortBy = 'name_desc')
     {
         $query = $this->createQueryBuilder('p');
        
@@ -30,6 +30,12 @@ class ProductRepository extends ServiceEntityRepository
             $searchTerm = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($searchTerm));
             $query->where('LOWER(p.name) LIKE :searchTerm or LOWER(p.symbol) LIKE :searchTerm ')
             ->setParameter('searchTerm', '%' . strtolower($searchTerm) . '%');
+        }
+
+        if($categoryId){
+            $query->leftJoin('p.category', 'c') 
+            ->andWhere('c.id = :categoryId')
+            ->setParameter('categoryId', $categoryId);
         }
 
         foreach ($filter as $key => $value) {

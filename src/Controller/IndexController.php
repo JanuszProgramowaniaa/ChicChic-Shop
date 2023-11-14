@@ -16,7 +16,7 @@ class IndexController extends AbstractController
     public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
         $cache = new FilesystemAdapter();
-
+        //$cache->clear();
 
         $cacheTime = 3600;
         $latestProducts = $cache->get('latestProducts_Cache', function (ItemInterface $item) use ($cacheTime, $productRepository): ?array {
