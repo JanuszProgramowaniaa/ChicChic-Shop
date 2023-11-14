@@ -28,7 +28,7 @@ class MenuBuilder
         $parameters = $this->urlMatcher->matchRequest($request);
   
         $routeName = $parameters['_route'];
-     
+       
         if ($routeName === 'app_products_index') {
             $home = $menu->addChild('Home', ['route' => 'app_index']);
             $home->addChild('Products', ['route' => 'app_products_index']);
@@ -36,7 +36,10 @@ class MenuBuilder
           
             $home = $menu->addChild('Home', ['route' => 'app_index']);
             $home->addChild('Contact', ['route' => 'app_contact_index']);
-
+            
+        }elseif ($routeName === 'app_products_search') {
+            $home = $menu->addChild('Home', ['route' => 'app_index']);
+            $home->addChild($parameters['slug'], ['route' => 'app_products_search', 'routeParameters' => ['slug' => $parameters['slug']]]);
         }
 
         return $menu;
