@@ -54,7 +54,7 @@
 
         searchForm.addEventListener('submit', function(event) {
             event.preventDefault();
-            let searchTerm = searchInput.value.trim();
+            let searchTerm = searchInput.value.trim().replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
             const page = 1;
 
             if(searchTerm.length === 0)  {
