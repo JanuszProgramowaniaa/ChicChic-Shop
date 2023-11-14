@@ -16,8 +16,11 @@
                     <a class="nav-link" href={{ path('app_contact_index') }}>Contact</a>
                 </li>
             </ul>
-            <form id="search-form" data-search-url="{{ path('app_products_search', {'slug': 'value', 'page': 1}) }}" method="GET" class="d-flex align-items-center ">
-                <input type="text" name="search" class="form-control me-2" placeholder="Search products...">
+            {% set currentPath = app.request.attributes.get('_route') %}
+            {% set slug = app.request.get('slug') %}
+
+            <form id="search-form" data-search-url="{{ path('app_products_search', {'slug': 'value', 'page': 1}) }}" method="GET" class="d-flex align-items-center">
+                <input type="text" name="search" class="form-control me-2" placeholder="Search products..." value="{% if slug is defined and slug != ' ' %}{{ slug }}{% endif %}">
                 <button type="submit" class="btn btn-primary">Search</button>
             </form>
         </div>
@@ -43,5 +46,22 @@
     </div>
     
 </nav>
+<script>
+    {# This script must be embedded to prevent caching #}
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchForm = document.querySelector('#search-form');
+        const searchInput = document.querySelector('input[name="search"]');
 
-<script src="js/products/layout/_parts/_nav.js"></script>
+        searchForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            let searchTerm = searchInput.value.trim();
+            const page = 1;
+
+            if(searchTerm.length === 0)  {
+                searchTerm = ' ';
+            }
+        
+            window.location.href = `/products/search/${encodeURIComponent(searchTerm)}/${page}`;
+        });
+    });
+</script>
