@@ -73,7 +73,7 @@ class ProductsController extends AbstractController
         $maxPage = ceil($totalProducts / $itemPerPage);
 
         if ($page != 1  && $maxPage < $page ) {
-            return $this->redirectToRoute('app_products_category', ['page'=>1]);
+            return $this->redirectToRoute('app_products_category', ['page'=>1, 'categoryId'=>$categoryId]);
         }
 
         $cache = new FilesystemAdapter();
