@@ -1,0 +1,14 @@
+{% block _breadcrumbs %}
+    {% for item in breadcrumbs.items %}
+        {% if not loop.first %}
+            <span>&rarr;</span>
+        {% endif %}
+        
+        {# Dodaj warunek, aby pokazać tylko linki do stron, które mają url #}
+        {% if item.uri %}
+            <a href="{{ item.uri }}">{{ item.label }}</a>
+        {% else %}
+            {{ item.label }}
+        {% endif %}
+    {% endfor %}
+{% endblock %}

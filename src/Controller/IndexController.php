@@ -34,7 +34,7 @@ class IndexController extends AbstractController
         
             return $bestsellerProducts;
         });
-
+        // @todo fetch global categories for only nav and save in cache
         $categories = $cache->get('categories_Cache', function (ItemInterface $item) use ($cacheTime, $categoryRepository): ?array {
             $item->expiresAfter($cacheTime);
         
