@@ -42,4 +42,18 @@
             </div>
         </div>
     </div>
+     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuItem = document.getElementById("menuItemName");
+            const menuItemCategory = document.getElementById("menuItemCategory");
+            if (menuItem) {
+                menuItem.textContent = "{{ product.name }}";
+            }
+            if (menuItemCategory) {
+                const url = '{{ path("app_products_category", {"categoryId": product.category.id, "page": 1}) }}';
+                menuItemCategory.innerHTML = `<a href="${url}">{{product.category.name}}</a>`;
+            }
+        });
+    </script>
+    
 {% endblock %}

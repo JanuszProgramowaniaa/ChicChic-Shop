@@ -8,6 +8,7 @@ Make sure you have the following software installed on your system:
 - PHP: Confirm PHP installation by running php -v in your terminal.
 - Composer: Verify Composer installation with composer -V.
 - MySQL: Install MySQL to manage the database. Refer to the MySQL documentation for installation instructions.
+- Node.js and npm: Install Node.js and npm to manage JavaScript dependencies. Refer to the Node.js documentation for installation instructions.
 
 
 ## Installation
@@ -18,6 +19,8 @@ Make sure you have the following software installed on your system:
 ### Install dependencies
 Navigate to the project directory and run:
 ```composer install```
+```npm install```
+
 
 ### Database Setup
 - Create a MySQL database for the project.
@@ -27,6 +30,10 @@ Navigate to the project directory and run:
 ### Run Migrations
 Execute the following commands:
 ```php bin/console doctrine:migrations:migrate```
+
+## Compile Sass files
+To compile Sass files, run the following command:
+```npm run dev```
 
 ### Start the Symfony server
 Run the Symfony server:

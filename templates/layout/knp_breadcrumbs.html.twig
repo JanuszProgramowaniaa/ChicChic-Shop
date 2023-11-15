@@ -17,10 +17,11 @@
 {% block root %}
 {% set listAttributes = item.childrenAttributes %}
 <ul>
+<li id="menuItemChicChicShop"><a href="{{ path('app_index') }}">ChicChic Shop</a></li>
 {{ block('list') -}}
 
-
 {% if currentPath == 'app_products_display' %}
+    <li id="menuItemCategory"><a href="/"> Item category </a></li>
     <li id="menuItemName"> Item name</li>
 {% endif %}
 

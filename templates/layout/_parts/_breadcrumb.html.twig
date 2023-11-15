@@ -1,31 +1,18 @@
 {% set current_path = app.request.get('_route') %}
 <div>
-
         {% set categoryMenu = knp_menu_get('MenuTree',['index']) %} 
         {% set menu = knp_menu_get('MenuTree') %} 
 
-        {# {{ knp_menu_render(categoryMenu, {'currentClass': 'active', 'template': 'layout/knp_menu.html.twig'}) }} #}
-     
-        {# okruszki #}
         {% if current_path != 'app_index' %}
             <div class="container breadcrumbs py-3">
-                {{ knp_menu_render(categoryMenu, {'currentClass': 'active', 'class':'breadcrumbs', 'template': 'layout/knp_breadcrumbs.html.twig'}) }}
-                
+                {{ knp_menu_render(categoryMenu, {
+                    'currentClass': 'active',
+                    'class':'breadcrumbs',
+                    'template': 'layout/knp_breadcrumbs.html.twig',
+                    'includeRoot': true  
+                }) }}
             </div>
         {% endif %}
-    
-       {# {{ knp_menu_render(menu ) }} #}
-
-        {# tylko informacje z  menu footer #}
-        {# Zamówienia  #}
-        {# {% set footerMenuInfo = knp_menu_get('MenuTree',['index', 'footerMenu','Informacje']) %}
-        {{ knp_menu_render(footerMenuInfo,{'currentClass': 'active', 'template': 'layout/knp_menu.html.twig'}) }} #}
-
-        {# Informacje
-        {% set footerMenuZam = knp_menu_get('MenuTree',['index', 'footerMenu','Zamówienia']) %}
-        {{ knp_menu_render(footerMenuZam,{'currentClass': 'active', 'template': 'layout/knp_menu.html.twig'}) }} #}
-        
-
 </div>
     
 
