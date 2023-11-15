@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/JanuszProgramowaniaa/ChicChic-Shop#readme",
   "devDependencies": {
+    "@babel/preset-env": "^7.23.3",
     "@symfony/webpack-encore": "^4.5.0",
     "css-loader": "^6.8.1",
     "node-sass": "^9.0.0",
@@ -34,5 +35,8 @@
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
     "webpack-notifier": "^1.15.0"
+  },
+  "dependencies": {
+    "core-js": "^3.33.2"
   }
 }

@@ -8,17 +8,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const selectElement = document.getElementById("sort");
+    if(selectElement){
+        selectElement.addEventListener("change", () => {
+            const selectedValue = selectElement.options[selectElement.selectedIndex].value;
+            const date = new Date();
+    
+            date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000); 
+            const expires = `expires=${date.toUTCString()}`;
+            
+            document.cookie = `selectedSort=${selectedValue}; ${expires}; path=/`;
+            location.reload();
+        });
 
-    selectElement.addEventListener("change", () => {
-        const selectedValue = selectElement.options[selectElement.selectedIndex].value;
-        const date = new Date();
-
-        date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000); 
-        const expires = `expires=${date.toUTCString()}`;
-        
-        document.cookie = `selectedSort=${selectedValue}; ${expires}; path=/`;
-        location.reload();
-    });
+    }
+  
 
     const checkbox = document.getElementById('bestsellers');
 
