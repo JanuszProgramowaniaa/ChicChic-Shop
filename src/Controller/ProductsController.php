@@ -15,16 +15,9 @@ class ProductsController extends AbstractController
     #[Route('/products/{page}', name: 'app_products_index')]
     public function index(Request $request, ProductRepository $productRepository, int $page = 1, int $itemPerPage = 6): Response
     {
-        $sortBy = $request->cookies->get('selectedSort', 'name_desc');
-        $filterBestseller = $request->cookies->get('filterBestseller', 0);
-
-        $filter = [];
-      
-        if($filterBestseller){
-            $filter['is_bestseller'] = $filterBestseller;
-        }
-       
-        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, null, null, $filter, $sortBy);
+        $filterAndSort = $this->filterAndSort($request);
+        
+        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, null, null, $filterAndSort['filter'], $filterAndSort['sortBy']);
 
         $totalProducts = count($paginatedProducts);
         $maxPage = ceil($totalProducts / $itemPerPage);
@@ -46,16 +39,9 @@ class ProductsController extends AbstractController
     #[Route('/products/category/{categoryId}/{page}', name: 'app_products_category')]
     public function productsCategory(Request $request, ProductRepository $productRepository, CategoryRepository $categoryRepository, int $categoryId, int $page = 1, int $itemPerPage = 6): Response
     {
-        $sortBy = $request->cookies->get('selectedSort', 'name_desc');
-        $filterBestseller = $request->cookies->get('filterBestseller', 0);
-
-        $filter = [];
-      
-        if($filterBestseller){
-            $filter['is_bestseller'] = $filterBestseller;
-        }
+        $filterAndSort = $this->filterAndSort($request);
        
-        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, $categoryId, null,  $filter, $sortBy);
+        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, $categoryId, null,  $filterAndSort['filter'], $filterAndSort['sortBy']);
 
         $totalProducts = count($paginatedProducts);
         $maxPage = ceil($totalProducts / $itemPerPage);
@@ -80,16 +66,9 @@ class ProductsController extends AbstractController
     #[Route('/products/search/{slug}/{page}', name: 'app_products_search', defaults: ['page' => 1])]
     public function search(Request $request, ProductRepository $productRepository, string $slug, int $page = 1, int $itemPerPage = 6): Response
     {
-        $sortBy = $request->cookies->get('selectedSort', 'name_desc');
-        $filterBestseller = $request->cookies->get('filterBestseller', 0);
+        $filterAndSort = $this->filterAndSort($request);
 
-        $filter = [];
-
-        if($filterBestseller){
-            $filter['is_bestseller'] = $filterBestseller;
-        }
-
-        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, null, $slug, $filter, $sortBy);
+        $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, null, $slug, $filterAndSort['filter'], $filterAndSort['sortBy']);
         $totalProducts = count($paginatedProducts);
         
         $maxPage = ceil($totalProducts / $itemPerPage );
@@ -132,6 +111,30 @@ class ProductsController extends AbstractController
         ]);
     }
 
-   
+   private function filterAndSort($request): Array{
+
+        $filterBestseller = $request->cookies->get('filterBestseller', 0);
+        $filterLatest = $request->cookies->get('filterLatest', 0);
+        $filterMinPrice = $request->cookies->get('filterMinPrice', 0);
+        $filterMaxPrice = $request->cookies->get('filterMaxPrice', 0);
+        $sortBy = $request->cookies->get('selectedSort', 'name_desc');
+
+        $filter = [];
+       
+        if($filterBestseller){
+            $filter['is_bestseller'] = $filterBestseller;
+        }
+        if($filterLatest){
+            $filter['latest'] = $filterLatest;
+        }
+        if($filterMinPrice){
+            $filter['minPrice'] = $filterMinPrice;
+        }
+        if($filterMaxPrice){
+            $filter['maxPrice'] = $filterMaxPrice;
+        }
+
+        return ['filter' => $filter, 'sortBy' => $sortBy];
+   }
 
 }

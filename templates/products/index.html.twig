@@ -4,32 +4,22 @@
     <h1 class='d-flex justify-content-center'></h1>
 
     {% if items is empty %}
-    <h2 class='d-flex justify-content-center'>Brak dostępnych przedmiotów</h2>
+        <div class="row align-items-center">
+            {% include 'products/_parts/_filter.html.twig' %}
+        </div>
+        <h2 class='d-flex justify-content-center'>Brak dostępnych przedmiotów</h2>
     {% else %}
        <div class="row align-items-center mb-2">
-            <label for="sort" class="col-auto me-2">Sort by:</label>
-            <div class="col-auto">
-                {% set selectedSort = app.request.cookies.get('selectedSort') %}
-                <select class="form-select" name="sort" id="sort">
-                    <option value="price_asc" {% if selectedSort == 'price_asc' %} selected {% endif %}>Price: Low to High</option>
-                    <option value="price_desc" {% if selectedSort == 'price_desc' %} selected {% endif %}>Price: High to Low</option>
-                    <option value="name_asc" {% if selectedSort == 'name_asc' %} selected {% endif %}>Product Names: A to Z</option>
-                    <option value="name_desc" {% if selectedSort == 'name_desc' %} selected {% endif %}>Product Names: Z to A</option>
-                </select>
-            </div>
-            <div class='d-flex align-items-center mt-1'>
-                {% set filterBestseller = app.request.cookies.get('filterBestseller') %}
-                <input type="checkbox" id="bestsellers" name="bestsellers" value="1" style="margin-right: 8px;" {% if filterBestseller == '1' %} checked {% endif %}>
-                <label for="bestsellers" style="margin-bottom: 0;"> Bestsellers</label>
-            </div>
-        </div>
-        <div class="row">
-       
-            {% for product in items %}
-                <div class="col-md-4">
-                    {% include 'products/_parts/_product.html.twig' %}
-                </div>
-            {% endfor %}
+        {% include 'products/_parts/_filter.html.twig' %}
+
+
+            <div class="row">
+        
+                {% for product in items %}
+                    <div class="col-md-4">
+                        {% include 'products/_parts/_product.html.twig' %}
+                    </div>
+                {% endfor %}
         </div>
     {% endif %}
 

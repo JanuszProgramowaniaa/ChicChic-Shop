@@ -24,32 +24,59 @@ class ProductRepository extends ServiceEntityRepository
 
     public function findAllPaginated(int $page = 1, int $itemPerPage = 6, ?int $categoryId = null, ?string $searchTerm = null, array $filter = [], string $sortBy = 'name_desc')
     {
-        $query = $this->createQueryBuilder('p');
+        $queryBuilder = $this->createQueryBuilder('p');
        
         if ($searchTerm) {
             $searchTerm = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($searchTerm));
-            $query->where('LOWER(p.name) LIKE :searchTerm or LOWER(p.symbol) LIKE :searchTerm ')
+            $queryBuilder->where('LOWER(p.name) LIKE :searchTerm or LOWER(p.symbol) LIKE :searchTerm ')
             ->setParameter('searchTerm', '%' . strtolower($searchTerm) . '%');
         }
 
         if($categoryId){
-            $query->leftJoin('p.category', 'c') 
+            $queryBuilder->leftJoin('p.category', 'c') 
             ->andWhere('c.id = :categoryId')
             ->setParameter('categoryId', $categoryId);
         }
-
+     
         foreach ($filter as $key => $value) {
-                $query->andWhere("p.{$key} = {$value}");
+            switch ($key) {
+                case "latest":
+                    $startDate = (new \DateTime())->sub(new \DateInterval('P30D'));
+                    $startDate->setTime(0, 0, 0);
+        
+                    $endDate = new \DateTime();
+                    $endDate->setTime(23, 59, 59);
+        
+                    $queryBuilder->andWhere('p.date_added BETWEEN :start AND :end')
+                        ->setParameter('start', $startDate)
+                        ->setParameter('end', $endDate);
+                    break;
+        
+                case "minPrice":
+                    $queryBuilder->andWhere("p.price >= :minPrice")
+                        ->setParameter('minPrice', floatval($value));
+                    break;
+        
+                case "maxPrice":
+                    $queryBuilder->andWhere("p.price <= :maxPrice")
+                        ->setParameter('maxPrice', floatval($value));
+                    break;
+        
+                default:
+                    $queryBuilder->andWhere("p.{$key} = :{$key}")
+                        ->setParameter($key, $value);
+                    break;
+            }
         }
-
+        
         $sortBy = explode('_', $sortBy);
         
-        $query->orderBy("p.{$sortBy[0]}", $sortBy[1]);
+        $queryBuilder->orderBy("p.{$sortBy[0]}", $sortBy[1]);
 
-        $query->setFirstResult($itemPerPage * ($page - 1))
+        $queryBuilder->setFirstResult($itemPerPage * ($page - 1))
             ->setMaxResults($itemPerPage);
     
-        $paginator = new Paginator($query, $fetchJoinCollection = true);
+        $paginator = new Paginator($queryBuilder, $fetchJoinCollection = true);
         
         return $paginator;
     }
