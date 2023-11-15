@@ -12,6 +12,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ProductsController extends AbstractController
 {
+    /**
+     * Displays a page with all products along with filtering by bestsellers and new products from the last month.
+     * @param int $page = 1 Subpage number. Default first page.
+     * @param int $itemPerPage = 6 Number of products on the page.
+     * @return Response 
+     */
     #[Route('/products/{page}', name: 'app_products_index')]
     public function index(Request $request, ProductRepository $productRepository, int $page = 1, int $itemPerPage = 6): Response
     {
@@ -36,8 +42,15 @@ class ProductsController extends AbstractController
         ]);
     }
 
+    /**
+     * Displays a page with all products, filtering by bestsellers and new products from the last month, and additionally searches by product category.
+     * @param int $categoryId The category number by which we are looking for products.
+     * @param int $page = 1 Subpage number. Default first page.
+     * @param int $itemPerPage = 6 Number of products on the page. Default six products.
+     * @return Response 
+     */
     #[Route('/products/category/{categoryId}/{page}', name: 'app_products_category')]
-    public function productsCategory(Request $request, ProductRepository $productRepository, CategoryRepository $categoryRepository, int $categoryId, int $page = 1, int $itemPerPage = 6): Response
+    public function productsCategory(Request $request, ProductRepository $productRepository, CategoryRepository $categoryRepository, int $categoryId = 1, int $page = 1, int $itemPerPage = 6): Response
     {
         $filterAndSort = $this->filterAndSort($request);
        
@@ -61,8 +74,13 @@ class ProductsController extends AbstractController
         ]);
     }
 
-
-
+    /**
+     * Displays a page with all products, filtering by bestsellers and new products from the last month, and also searches for products by phrase. Searches by product name and symbol.
+     * @param string $slug The phrase by which we search for products is currently searched by product name and symbol.
+     * @param int $page = 1 Subpage number. Default first page.
+     * @param int $itemPerPage = 6 Number of products on the page. Default six products.
+     * @return Response 
+     */
     #[Route('/products/search/{slug}/{page}', name: 'app_products_search', defaults: ['page' => 1])]
     public function search(Request $request, ProductRepository $productRepository, string $slug, int $page = 1, int $itemPerPage = 6): Response
     {
@@ -89,6 +107,11 @@ class ProductsController extends AbstractController
         ]);
     }
 
+    /**
+     * Displays a view about the product we are interested in.
+     * @param int $productId = Product ID whose information we want to see
+     * @return Response 
+     */
     #[Route('/products/display/{productId}', name: 'app_products_display')]
     public function display(ProductRepository $productRepository, CategoryRepository $categoryRepository, int $productId = null): Response
     {   
@@ -110,8 +133,12 @@ class ProductsController extends AbstractController
             'product' => $product
         ]);
     }
-
-   private function filterAndSort($request): Array{
+/**
+     * A function that creates an array of data for filtering and sorting products
+     * @param request $request = The request based on which we generate filters and sort products
+     * @return Array Table with filtering and sorting products
+     */
+   private function filterAndSort(request $request): Array{
 
         $filterBestseller = $request->cookies->get('filterBestseller', 0);
         $filterLatest = $request->cookies->get('filterLatest', 0);

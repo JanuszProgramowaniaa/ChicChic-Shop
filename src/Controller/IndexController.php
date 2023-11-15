@@ -12,6 +12,10 @@ use Symfony\Contracts\Cache\ItemInterface;
 
 class IndexController extends AbstractController
 {
+    /**
+     * Displays the home page with sliders with bestsellers and new products from the last month
+     * @return Response 
+     */
     #[Route('/', name: 'app_index')]
     public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {

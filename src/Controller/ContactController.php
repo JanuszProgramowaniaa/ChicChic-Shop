@@ -14,6 +14,10 @@ use Symfony\Contracts\Cache\ItemInterface;
 
 class ContactController extends AbstractController
 {
+    /**
+     * Displays a contact page along with an inquiry form
+     * @return Response 
+     */
     #[Route('/contact', name: 'app_contact_index')]
     public function index(Request $request, MailerInterface $mailer): Response
     {
