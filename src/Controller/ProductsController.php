@@ -144,7 +144,7 @@ class ProductsController extends AbstractController
     }
 
     #[Route('/products/display/{productId}', name: 'app_products_display')]
-    public function display(ProductRepository $productRepository, int $productId = null): Response
+    public function display(ProductRepository $productRepository, CategoryRepository $categoryRepository, int $productId = null): Response
     {   
         if (!$productId) {
             $this->addFlash('error', 'Product not exist !');
@@ -157,9 +157,21 @@ class ProductsController extends AbstractController
             $this->addFlash('error', 'Product not exist !');
             return $this->redirectToRoute('app_products_index');
         }
+
+        $cache = new FilesystemAdapter();
+        $cacheTime = 3600;
+
+        $categories = $cache->get('categories_Cache', function (ItemInterface $item) use ($cacheTime, $categoryRepository): ?array {
+            $item->expiresAfter($cacheTime);
+        
+            $categoryProducts = $categoryRepository->findAll();
+        
+            return  $categoryProducts;
+        });
     
         return $this->render('products/display.html.twig', [
             'product' => $product,
+            'categories' => $categories
         ]);
     }
 

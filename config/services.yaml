@@ -10,7 +10,18 @@ services:
         class: App\Menu\MenuBuilder
         arguments: ["@knp_menu.factory"]
         tags:
-            - { name: knp_menu.menu_builder, method: createMainMenu, alias: main } # The alias is what is used to retrieve the menu
+        - {
+            name: knp_menu.menu_builder,
+            method: createMenuTree,
+            alias: MenuTree,
+            }
+    object_category:
+        class: App\Service\Category\CategoryCurrent
+    app.menu_voter:
+        class:  App\Menu\RequestVoter
+        arguments: [ '@request_stack' ,'@=service("object_category")']
+        tags:
+            - { name: knp_menu.voter }
 
     # default configuration for services in *this* file
     _defaults:
