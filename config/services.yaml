@@ -6,6 +6,10 @@
 parameters:
 
 services:
+    Symfony\Component\Cache\Adapter\FilesystemAdapter: ~
+    App\Command\clearCacheCommand:
+        arguments:
+            $cache: '@Symfony\Component\Cache\Adapter\FilesystemAdapter'
     app.menu_builder:
         class: App\Menu\MenuBuilder
         arguments: ["@knp_menu.factory"]
