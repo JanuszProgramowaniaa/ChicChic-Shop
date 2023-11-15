@@ -14,6 +14,8 @@ class IndexController extends AbstractController
 {
     /**
      * Displays the home page with sliders with bestsellers and new products from the last month
+     * @param ProductRepository $productRepository Product repository
+     * @param CategoryRepository $categoryRepository Category repository
      * @return Response 
      */
     #[Route('/', name: 'app_index')]

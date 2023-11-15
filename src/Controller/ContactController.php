@@ -16,6 +16,8 @@ class ContactController extends AbstractController
 {
     /**
      * Displays a contact page along with an inquiry form
+     * @param Request $request Handling requests
+     * @param MailerInterface $mailer The service responsible for sending e-mails
      * @return Response 
      */
     #[Route('/contact', name: 'app_contact_index')]

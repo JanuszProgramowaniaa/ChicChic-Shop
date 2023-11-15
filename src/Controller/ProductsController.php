@@ -14,6 +14,8 @@ class ProductsController extends AbstractController
 {
     /**
      * Displays a page with all products along with filtering by bestsellers and new products from the last month.
+     * @param Request $request Handling requests
+     * @param ProductRepository $productRepository Product repository
      * @param int $page = 1 Subpage number. Default first page.
      * @param int $itemPerPage = 6 Number of products on the page.
      * @return Response 
@@ -44,6 +46,9 @@ class ProductsController extends AbstractController
 
     /**
      * Displays a page with all products, filtering by bestsellers and new products from the last month, and additionally searches by product category.
+     * @param Request $request Handling requests
+     * @param ProductRepository $productRepository Product repository
+     * @param CategoryRepository $categoryRepository Category repository
      * @param int $categoryId The category number by which we are looking for products.
      * @param int $page = 1 Subpage number. Default first page.
      * @param int $itemPerPage = 6 Number of products on the page. Default six products.
@@ -63,7 +68,6 @@ class ProductsController extends AbstractController
             return $this->redirectToRoute('app_products_category', ['page'=>1, 'categoryId'=>$categoryId]);
         }
 
-
         return $this->render('products/index.html.twig', [
             'items' => $paginatedProducts,
             'page' => $page,
@@ -76,6 +80,8 @@ class ProductsController extends AbstractController
 
     /**
      * Displays a page with all products, filtering by bestsellers and new products from the last month, and also searches for products by phrase. Searches by product name and symbol.
+     * @param Request $request Handling requests
+     * @param ProductRepository $productRepository Product repository
      * @param string $slug The phrase by which we search for products is currently searched by product name and symbol.
      * @param int $page = 1 Subpage number. Default first page.
      * @param int $itemPerPage = 6 Number of products on the page. Default six products.
@@ -95,8 +101,6 @@ class ProductsController extends AbstractController
             return $this->redirectToRoute('app_products_search', ['page'=>1, 'slug'=>$slug]);
         }
 
-    
-        
         return $this->render('products/index.html.twig', [
             'items' => $paginatedProducts,
             'page' => $page,
@@ -109,7 +113,9 @@ class ProductsController extends AbstractController
 
     /**
      * Displays a view about the product we are interested in.
-     * @param int $productId = Product ID whose information we want to see
+     * @param int $productId = null Product ID whose information we want to see
+     * @param ProductRepository $productRepository Product repository
+     * @param CategoryRepository $categoryRepository Category repository
      * @return Response 
      */
     #[Route('/products/display/{productId}', name: 'app_products_display')]
@@ -127,13 +133,11 @@ class ProductsController extends AbstractController
             return $this->redirectToRoute('app_products_index');
         }
 
-    
-    
         return $this->render('products/display.html.twig', [
             'product' => $product
         ]);
     }
-/**
+    /**
      * A function that creates an array of data for filtering and sorting products
      * @param request $request = The request based on which we generate filters and sort products
      * @return Array Table with filtering and sorting products
