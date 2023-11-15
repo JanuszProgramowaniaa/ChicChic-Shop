@@ -53,7 +53,7 @@ class MenuBuilder
         $cache = new FilesystemAdapter();
    
  
-        $menu = $cache->get("menu_cache23321321223121", function (ItemInterface $categoryMenu){
+        $menu = $cache->get("menu_cache23323211321223121", function (ItemInterface $categoryMenu){
             $categoryMenu->expiresAfter(60*60*24);
             
             $firstChildLabelName = "ChicChic Shop";
@@ -74,9 +74,9 @@ class MenuBuilder
             $menu['index']->addChild('headerMenu')->setChildrenAttribute('class', 'list-unstyled m-0 d-flex justify-content-evenly gap-3')->setAttribute('class', 'd-none');
             $menu['index']['headerMenu']->addChild('Contact',  ['uri' => $this->router->generate('app_contact_index')]);
 
-
+            $menu['index']->addChild('category')->setAttribute('class', 'd-none');
             foreach ($categories as $category) {
-                $menu['index']->addChild($category->getName(),['uri' => $this->router->generate('app_products_category', ['categoryId' => $category->getId()])]);
+                $menu['index']['category']->addChild($category->getName(),['uri' => $this->router->generate('app_products_category', ['categoryId' => $category->getId()])]);
             }
           
             

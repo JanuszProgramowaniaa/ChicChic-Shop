@@ -9,14 +9,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use App\Repository\CategoryRepository;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Contracts\Cache\ItemInterface;
 
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact_index')]
-    public function index(Request $request, MailerInterface $mailer, CategoryRepository $categoryRepository): Response
+    public function index(Request $request, MailerInterface $mailer): Response
     {
         $form = $this->createForm(ContactType::class);
 
@@ -42,18 +41,12 @@ class ContactController extends AbstractController
         $cache = new FilesystemAdapter();
         $cacheTime = 3600;
 
-        $categories = $cache->get('categories_Cache', function (ItemInterface $item) use ($cacheTime, $categoryRepository): ?array {
-            $item->expiresAfter($cacheTime);
-        
-            $categoryProducts = $categoryRepository->findAll();
-        
-            return $categoryProducts;
-        });
+    
 
         return $this->render('contact/index.html.twig', [
             'contact_form' => $form->createView(),
-            'contact_email' => 'damianwasiak49test@gmail.com',
-            'categories' => $categories
+            'contact_email' => 'damianwasiak49test@gmail.com'
+         
         ]);
     }
 }

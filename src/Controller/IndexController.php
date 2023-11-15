@@ -34,19 +34,13 @@ class IndexController extends AbstractController
         
             return $bestsellerProducts;
         });
-        // @todo fetch global categories for only nav and save in cache
-        $categories = $cache->get('categories_Cache', function (ItemInterface $item) use ($cacheTime, $categoryRepository): ?array {
-            $item->expiresAfter($cacheTime);
-        
-            $categoryProducts = $categoryRepository->findAll();
-        
-            return  $categoryProducts;
-        });
+
+     
     
         return $this->render('index/index.html.twig', [
             'latestProducts' => $latestProducts,
-            'bestsellerProducts' => $bestsellerProducts,
-            'categories' => $categories
+            'bestsellerProducts' => $bestsellerProducts
+          
         ]);
     }
 }
