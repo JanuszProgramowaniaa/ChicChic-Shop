@@ -53,7 +53,7 @@ class MenuBuilder
         $cache = new FilesystemAdapter();
    
  
-        $menu = $cache->get("menu_cache23323211321223121", function (ItemInterface $categoryMenu){
+        $menu = $cache->get("menu_cache_v1", function (ItemInterface $categoryMenu){
             $categoryMenu->expiresAfter(60*60*24);
             
             $firstChildLabelName = "ChicChic Shop";
