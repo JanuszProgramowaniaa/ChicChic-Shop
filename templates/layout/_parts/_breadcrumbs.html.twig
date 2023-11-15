@@ -4,7 +4,6 @@
             <span>&rarr;</span>
         {% endif %}
         
-        {# Dodaj warunek, aby pokazać tylko linki do stron, które mają url #}
         {% if item.uri %}
             <a href="{{ item.uri }}">{{ item.label }}</a>
         {% else %}

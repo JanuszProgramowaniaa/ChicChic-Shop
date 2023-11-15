@@ -7,7 +7,7 @@
         {# {{ knp_menu_render(categoryMenu, {'currentClass': 'active', 'template': 'layout/knp_menu.html.twig'}) }} #}
      
         {# okruszki #}
-        {% if current_path != 'index_index' %}
+        {% if current_path != 'app_index' %}
             <div class="container breadcrumbs py-3">
                 {{ knp_menu_render(categoryMenu, {'currentClass': 'active', 'class':'breadcrumbs', 'template': 'layout/knp_breadcrumbs.html.twig'}) }}
                 

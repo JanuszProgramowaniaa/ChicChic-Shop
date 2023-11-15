@@ -20,18 +20,11 @@
 {{ block('list') -}}
 
 
-{% if currentPath == 'app_item_index' %}
+{% if currentPath == 'app_products_display' %}
     <li id="menuItemName"> Item name</li>
 {% endif %}
 
-{# 
-   Ze względu na konstrukcję metody user w AdministrationController musimy dodać ręcznie tę ścieżke, 
-   @todo pomyslec jak rozwiązać problem w menuBuilderze, poniższe rozwiązanie jest tymczasowe 
-#}
-{% if currentPath == 'app_administration_user' %}
-    <li class="current_ancestor"> <a href="/administration/users">Wszyscy użytkownicy</a> </li>
-    <li> Szczegóły konta </li>
-{% endif %}
+
 
 </ul>
 {% endblock %}
