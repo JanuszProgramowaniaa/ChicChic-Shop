@@ -24,8 +24,6 @@ class RequestVoter implements VoterInterface
     public function matchItem(ItemInterface $item): ?bool
     {
      
-        $categoryPatern = "/product/category/".$this->categoryService->getCategoryId()."/";
-
         if($this->categoryService->getCategoryId()  != null && str_contains($item->getUri(), $categoryPatern)){
             return true;
         }

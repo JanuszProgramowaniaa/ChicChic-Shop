@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Yaml\Yaml;
 
 
 class ProductsController extends AbstractController
@@ -23,8 +24,13 @@ class ProductsController extends AbstractController
     #[Route('/products/{page}', name: 'app_products_index')]
     public function index(Request $request, ProductRepository $productRepository, int $page = 1, int $itemPerPage = 6): Response
     {
+        $filePath = '../config/siteconfig/config.yaml';
+        if (file_exists($filePath)) {
+            $itemPerPage = Yaml::parseFile($filePath)['config']['itemPerPage'];
+        } 
+
         $filterAndSort = $this->filterAndSort($request);
-        
+   
         $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, null, null, $filterAndSort['filter'], $filterAndSort['sortBy']);
 
         $totalProducts = count($paginatedProducts);
@@ -57,6 +63,11 @@ class ProductsController extends AbstractController
     #[Route('/products/category/{categoryId}/{page}', name: 'app_products_category')]
     public function productsCategory(Request $request, ProductRepository $productRepository, CategoryRepository $categoryRepository, int $categoryId = 1, int $page = 1, int $itemPerPage = 6): Response
     {
+        $filePath = '../config/siteconfig/config.yaml';
+        if (file_exists($filePath)) {
+            $itemPerPage = Yaml::parseFile($filePath)['config']['itemPerPage'];
+        } 
+
         $filterAndSort = $this->filterAndSort($request);
        
         $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, $categoryId, null,  $filterAndSort['filter'], $filterAndSort['sortBy']);
@@ -90,6 +101,11 @@ class ProductsController extends AbstractController
     #[Route('/products/search/{slug}/{page}', name: 'app_products_search', defaults: ['page' => 1])]
     public function search(Request $request, ProductRepository $productRepository, string $slug, int $page = 1, int $itemPerPage = 6): Response
     {
+        $filePath = '../config/siteconfig/config.yaml';
+        if (file_exists($filePath)) {
+            $itemPerPage = Yaml::parseFile($filePath)['config']['itemPerPage'];
+        } 
+
         $filterAndSort = $this->filterAndSort($request);
 
         $paginatedProducts = $productRepository->findAllPaginated($page, $itemPerPage, null, $slug, $filterAndSort['filter'], $filterAndSort['sortBy']);

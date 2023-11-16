@@ -1,44 +1,35 @@
 <?php
-// src/Menu/MenuBuilder.php
 
 namespace App\Menu;
-
-
-// Komponenty symfony
-use Symfony\Component\Yaml\Yaml;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Security;
 
-// Komponenty Knp Menu
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface as ItemInterfaceMenu;
 use Knp\Menu\MenuFactory;
 
-// Encje
-use App\Entity\Category;
-
-// Cache
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
+use App\Entity\Category;
 use App\Repository\CategoryRepository;
 
+use Symfony\Component\Yaml\Yaml;
 
 class MenuBuilder
 {
     private $factory;
     private $router;
-    private $logger;
     private $entityManager;
     private $requestStack;
     private $categoryRepository;
   
-
-    public function __construct(FactoryInterface $factory, RequestStack $requestStack, EntityManagerInterface $entityManager,  UrlGeneratorInterface $router, CategoryRepository $categoryRepository)
+    /**
+     * Make a structure menu three 
+     */
+    public function __construct(FactoryInterface $factory, RequestStack $requestStack, EntityManagerInterface $entityManager, UrlGeneratorInterface $router, CategoryRepository $categoryRepository)
     {
         $this->factory = $factory;
         $this->entityManager = $entityManager;
@@ -58,7 +49,22 @@ class MenuBuilder
             
             $firstChildLabelName = "ChicChic Shop";
 
-            $categories = $this->categoryRepository->findAll();
+            $cacheTime = 3600;
+            $filePath = '../config/siteconfig/config.yaml';
+            if (file_exists($filePath)) {
+                $cacheTime = Yaml::parseFile($filePath)['config']['cacheTime'];
+            } 
+
+            $cache = new FilesystemAdapter();
+
+            $latestProducts = $cache->get('latestProducts_Cache', function (ItemInterface $item) use ($cacheTime, $categorytRepository): ?array {
+                $item->expiresAfter($cacheTime);
+            
+                $categories = $this->categoryRepository->findAll();
+        
+                return $categories;
+            });
+         
 
           
             
@@ -79,7 +85,6 @@ class MenuBuilder
                 $menu['index']['category']->addChild($category->getName(),['uri' => $this->router->generate('app_products_category', ['categoryId' => $category->getId()])]);
             }
           
-            
             return $menu;
         });
 
@@ -89,8 +94,6 @@ class MenuBuilder
         if(!empty($slug)){
              $menu['index']->addChild('Search',  ['uri' => $this->router->generate('app_products_search', ['slug' => $slug])]);
         }
-       
-
 
         return $menu;
     }

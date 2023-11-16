@@ -1,0 +1,3 @@
+config:
+  cacheTime: 3600
+  itemPerPage: 6

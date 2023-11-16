@@ -9,6 +9,7 @@ use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Component\Yaml\Yaml;
 
 class IndexController extends AbstractController
 {
@@ -21,10 +22,15 @@ class IndexController extends AbstractController
     #[Route('/', name: 'app_index')]
     public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
-        $cache = new FilesystemAdapter();
-        //$cache->clear();
-
+   
         $cacheTime = 3600;
+        $filePath = '../config/siteconfig/config.yaml';
+        if (file_exists($filePath)) {
+            $cacheTime = Yaml::parseFile($filePath)['config']['cacheTime'];
+        } 
+
+        $cache = new FilesystemAdapter();
+
         $latestProducts = $cache->get('latestProducts_Cache', function (ItemInterface $item) use ($cacheTime, $productRepository): ?array {
             $item->expiresAfter($cacheTime);
         
@@ -41,8 +47,6 @@ class IndexController extends AbstractController
             return $bestsellerProducts;
         });
 
-     
-    
         return $this->render('index/index.html.twig', [
             'latestProducts' => $latestProducts,
             'bestsellerProducts' => $bestsellerProducts

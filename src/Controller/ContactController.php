@@ -9,8 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Symfony\Contracts\Cache\ItemInterface;
 
 class ContactController extends AbstractController
 {
@@ -30,7 +28,6 @@ class ContactController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
     
-            // Send email
             $email = (new Email())
                 ->from('your_email@example.com')
                 ->to('recipient@example.com')
@@ -43,11 +40,6 @@ class ContactController extends AbstractController
           
             return $this->redirectToRoute('homepage');
         }
-
-        $cache = new FilesystemAdapter();
-        $cacheTime = 3600;
-
-    
 
         return $this->render('contact/index.html.twig', [
             'contact_form' => $form->createView(),
