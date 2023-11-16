@@ -43,11 +43,18 @@ Access your ChicChic Shop project at http://localhost:8000 in your web browser.
 ## Additional Information
 For more advanced configurations or troubleshooting, refer to the Symfony documentation.
 
-
 This README provides basic instructions to set up and run the "ChicChic Shop" project. Customize the database connection parameters and project paths accordingly.
 
+## Screenshots
 
+### ChicChic - Shop
+![Image](./images/screenshots/home.jpg)
 
+### Products
+![Image](./images/screenshots/products.jpg)
+
+### Contact
+![Image](./images/screenshots/contact.jpg)
 
 
 
