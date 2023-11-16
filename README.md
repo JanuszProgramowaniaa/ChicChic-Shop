@@ -61,7 +61,7 @@ The view shows a collection of all products. Products are paged on the server si
 The view shows the results after server-side filtering.
 We filter by products added within a month, prices ranging from 2 to 10.
 Additionally, we sort by price from highest to lowest.
-Nothing is entered in the search engine, but it searches for products by symbol or name, we do not have to enter the exact phrase.
+The search engine searches for products by symbol or name, we do not have to enter the exact phrase.
 ![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/filter.jpg)
 
 
