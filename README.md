@@ -52,7 +52,7 @@ View of the main page with a menu with categories that we can enter.
 ![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/home.jpg)
 
 ### Products
-The view shows a collection of all products. Products are paged on the server side
+The view shows a collection of all products. Products are paged on the server side.
 ![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/products.jpg)
 
 ### Filter
@@ -69,6 +69,8 @@ We can see an extensive breadcrumb menu that guides us step by step, including t
 
 ### Contact
 The view displays a contact form along with a map.
+Fields are validated on the server side.
+They cannot be empty and the first field must have the structure of an e-mail.
 ![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/contact.jpg)
 
 
