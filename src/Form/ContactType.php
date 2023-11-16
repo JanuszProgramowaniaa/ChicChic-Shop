@@ -24,6 +24,10 @@ class ContactType extends AbstractType
                 'constraints' => [
                     new NotBlank(['message' => 'Message cannot be blank']),
                 ],
+                'attr' => [
+                    'rows' => 7, 
+                    'style' => 'resize: none;', 
+                ],
             ])
         ;
     }
