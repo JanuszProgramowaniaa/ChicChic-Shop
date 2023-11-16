@@ -6,8 +6,9 @@
     {% if items is empty %}
         <div class="row align-items-center">
             {% include 'products/_parts/_filter.html.twig' %}
+            <h2 class='d-flex justify-content-center'>Brak dostępnych przedmiotów</h2>
         </div>
-        <h2 class='d-flex justify-content-center'>Brak dostępnych przedmiotów</h2>
+    
     {% else %}
        <div class="row align-items-center mb-2">
         {% include 'products/_parts/_filter.html.twig' %}
