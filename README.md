@@ -48,13 +48,13 @@ This README provides basic instructions to set up and run the "ChicChic Shop" pr
 ## Screenshots
 
 ### ChicChic - Shop
-![Image](./images/screenshots/home.jpg)
+![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/home.jpg)
 
 ### Products
-![Image](./images/screenshots/products.jpg)
+![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/products.jpg)
 
 ### Contact
-![Image](./images/screenshots/contact.jpg)
+![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/contact.jpg)
 
 
 
