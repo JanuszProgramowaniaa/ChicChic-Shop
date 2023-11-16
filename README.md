@@ -56,7 +56,7 @@ View of the main page with a menu with categories that we can enter.
 The view shows a collection of all products.
 We are on the second page of pagination.
 Paging is done on the server side.
-![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/products.jpg)
+![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/products1.jpg)
 
 
 ### Filter
