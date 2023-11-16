@@ -44,8 +44,6 @@ Access your ChicChic Shop project at http://localhost:8000 in your web browser.
 Using this command we can reset the entire cache
 ```php bin/console app:clearCacheCommand```
 
-This README provides basic instructions to set up and run the "ChicChic Shop" project. Customize the database connection parameters and project paths accordingly.
-
 ## Additional Information
 For more advanced configurations or troubleshooting, refer to the Symfony documentation.
 
