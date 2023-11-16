@@ -51,9 +51,11 @@ This README provides basic instructions to set up and run the "ChicChic Shop" pr
 View of the main page with a menu with categories that we can enter.
 ![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/home.jpg)
 
+
 ### Products
 The view shows a collection of all products. Products are paged on the server side
 ![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/products.jpg)
+
 
 ### Filter
 The view shows the results after server-side filtering.
@@ -62,10 +64,12 @@ Additionally, we sort by price from highest to lowest.
 Nothing is entered in the search engine, but it searches for products by symbol or name, we do not have to enter the exact phrase.
 ![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/filter.jpg)
 
-### product
+
+### Product
 The view shows product details.
 We can see an extensive breadcrumb menu that guides us step by step, including the category it belongs to.
 ![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/product.jpg)
+
 
 ### Contact
 The view displays a contact form along with a map.
