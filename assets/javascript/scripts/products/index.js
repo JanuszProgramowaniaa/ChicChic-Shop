@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     for (let i = 0; i < images.length; i++) {
         images[i].onerror = function() {
             this.onerror = null;
-            this.src = 'images/products/No-Image.jpg'; 
+            this.src = 'images/No-Image.jpg'; 
         };
     }
 
