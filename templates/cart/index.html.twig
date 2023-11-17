@@ -21,6 +21,9 @@
                     <tbody>
                         {% for entry in cart.ShoppingCartEntry %}
                             <tr>
+                                <td class="d-flex align-items-start">
+                                    <img src="{{ asset('images/products/' ~ entry.product.id ~ '.png') }}" alt="{{ entry.product.name }}" width="200" height="200"  />
+                                </td>
                                 <td class="d-md-none text-end">
                                     <button data-product-id="{{ entry.product.id }}" 
                                             type="button" 
@@ -28,7 +31,7 @@
                                             aria-label="Close">
                                     </button>
                                 </td>
-                                <td class="text-center">
+                                <td class="text-start">
                                     <a href="#" class="link">
                                         {{ entry.product.name|length > 24 ? entry.product.name|slice(0, 24) ~ '…' : entry.product.name }}
                                     </a>
