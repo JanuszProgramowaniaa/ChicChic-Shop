@@ -1,0 +1,67 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block title %}{{ 'Cart'|trans }}{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>{{ 'Cart'|trans }}</h1>
+
+        <div class="white-bg-wrapper border d-flex flex-column gap-3">
+            {% if cart.ShoppingCartEntry is not empty %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in cart.ShoppingCartEntry %}
+                            <tr>
+                                <td class="d-md-none text-end">
+                                    <button data-product-id="{{ entry.product.id }}" 
+                                            type="button" 
+                                            class="btn-close" 
+                                            aria-label="Close">
+                                    </button>
+                                </td>
+                                <td class="text-center">
+                                    <a href="#" class="link">
+                                        {{ entry.product.name|length > 24 ? entry.product.name|slice(0, 24) ~ '…' : entry.product.name }}
+                                    </a>
+                                </td>
+                                <td>{{ entry.quantity }}</td>
+                                <td>{{ entry.product.getPrice }}</td>
+                                <td class="d-none d-md-table-cell text-end">
+                                    <button data-product-id="{{ entry.product.id }}" 
+                                            type="button" 
+                                            class="btn-close" 
+                                            aria-label="Close">
+                                    </button>
+                                </td>
+                            </tr>
+                        {% else %}       
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    <strong>Cart is empty</strong> 
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+
+            <div class="border-top d-flex flex-column align-items-end border-bottom gap-2 py-3">
+                <span class="h4">{{ 'Summary'|trans }}</span>
+                <span>Order Value: <span class="fw-bold">{{ cart.productsum }}</span></span>
+            </div>
+
+            <div class="d-flex justify-content-end mt-5"> 
+                <a href="#" class="btn btn-primary text-white">Summary</a> 
+            </div>
+        </div>
+    </div>
+{% endblock %}

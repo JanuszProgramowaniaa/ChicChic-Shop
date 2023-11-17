@@ -36,6 +36,11 @@ class Product
     #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ["default" => "CURRENT_TIMESTAMP"])]
     private ?\DateTimeInterface $date_added = null;
 
+    public function __construct()
+    {
+        $this->dateAdded = new \DateTime();
+    }
+
  
     public function getId(): ?int
     {

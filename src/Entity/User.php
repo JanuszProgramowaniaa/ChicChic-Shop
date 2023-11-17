@@ -32,6 +32,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
+    #[ORM\OneToOne(targetEntity: ShoppingCart::class, mappedBy: 'User', cascade: ['persist', 'remove'])]
+    private $shoppingCart;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -113,4 +117,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getShoppingCart(): ?ShoppingCart
+    {
+        return $this->shoppingCart;
+    }
+
+    public function setShoppingCart(ShoppingCart $shoppingCart): self
+    {
+        // set the owning side of the relation if necessary
+        if ($shoppingCart->getUser() !== $this) {
+            $shoppingCart->setUser($this);
+        }
+
+        $this->shoppingCart = $shoppingCart;
+
+        return $this;
+    }
+
+
+
 }
