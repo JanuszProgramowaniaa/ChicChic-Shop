@@ -11,29 +11,31 @@
     
     {% else %}
         
-       <div class="row align-items-center mb-2">
+      <div class="row align-items-center mb-2">
             {% include 'products/_parts/_filter.html.twig' %}
-           
-                <div class="col-12 d-flex align-items-center justify-content-end mb-2">
-                    <label for="sort" class="col-auto me-2">Sort by:</label>
-                    <div class="col-auto">
-                        {% set selectedSort = app.request.cookies.get('selectedSort') %}
-                        <select class="form-select" name="sort" id="sort">
-                            <option value="price_asc" {% if selectedSort == 'price_asc' %} selected {% endif %}>Price: Low to High</option>
-                            <option value="price_desc" {% if selectedSort == 'price_desc' %} selected {% endif %}>Price: High to Low</option>
-                            <option value="name_asc" {% if selectedSort == 'name_asc' %} selected {% endif %}>Product Names: A to Z</option>
-                            <option value="name_desc" {% if selectedSort == 'name_desc' %} selected {% endif %}>Product Names: Z to A</option>
-                        </select>
-                    </div>
+
+            <div class="col-12 d-flex align-items-center justify-content-end mb-2">
+                <label for="sort" class="col-auto me-2">Sort by:</label>
+                <div class="col-auto">
+                    {% set selectedSort = app.request.cookies.get('selectedSort') %}
+                    <select class="form-select" name="sort" id="sort">
+                        <option value="price_asc" {% if selectedSort == 'price_asc' %} selected {% endif %}>Price: Low to High</option>
+                        <option value="price_desc" {% if selectedSort == 'price_desc' %} selected {% endif %}>Price: High to Low</option>
+                        <option value="name_asc" {% if selectedSort == 'name_asc' %} selected {% endif %}>Product Names: A to Z</option>
+                        <option value="name_desc" {% if selectedSort == 'name_desc' %} selected {% endif %}>Product Names: Z to A</option>
+                    </select>
                 </div>
-            
-            <div class="row">
-                {% for product in items %}
-                    <div class="col-4">
-                        {% include 'products/_parts/_product.html.twig' %}
-                    </div>
-                {% endfor %}
+            </div>
         </div>
+
+        <div class="row">
+            {% for product in items %}
+                <div class="col-4">
+                    {% include 'products/_parts/_product.html.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+        
     {% endif %}
 
     {% include 'products/_parts/_pagination.html.twig' %}
