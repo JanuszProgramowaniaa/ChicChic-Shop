@@ -109,6 +109,19 @@ class ProductRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+    public function findBySimilaryProduct(int $categoryId, int $limit = 6)
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+        
+        // Dodaj złączenie z encją kategorii
+        $queryBuilder->join('p.category', 'c')
+            ->where('c.id = :categoryId')
+            ->setParameter('categoryId', $categoryId)
+            ->setMaxResults($limit);
+    
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     
 
 

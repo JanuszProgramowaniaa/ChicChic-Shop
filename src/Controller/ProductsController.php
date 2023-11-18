@@ -144,13 +144,17 @@ class ProductsController extends AbstractController
 
         $product = $productRepository->find($productId);
 
+        $categoryId = $product->getcategory()->getId();
+        $similaryProduct = $productRepository->findBySimilaryProduct($categoryId, 6);
+
         if (!$product) {
             $this->addFlash('error', 'Product not exist !');
             return $this->redirectToRoute('app_products_index');
         }
 
         return $this->render('products/display.html.twig', [
-            'product' => $product
+            'product' => $product,
+            'similaryProduct' => $similaryProduct
         ]);
     }
     /**
