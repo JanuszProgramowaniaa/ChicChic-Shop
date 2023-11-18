@@ -49,24 +49,30 @@ class CartManager
      */
     public function getCurrentCart(): ShoppingCart
     {
-              
+        $user = $this->security->getUser();
+
+        if ($user) {
+
             $cart = $this->cartSessionStorage->getCart();
 
             if (!$cart) {
-        
-                $user = $this->userRepository->find($this->security->getUser()->getId());
+               
                 $cart = $user->getShoppingCart();
-                if($cart){
+    
+                if ($cart) {
                     $this->cartSessionStorage->setCart($cart);
                     return $cart;
                 }
-              
+    
                 $cart = $this->cartFactory->create();
-
                 $cart->setUser($user);
                 $this->save($cart);
             }
+    
+            return $cart;
+        }
 
+        $cart = new ShoppingCart();
         return $cart;
     }
 

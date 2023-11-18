@@ -41,9 +41,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(response => {
                     if (response.status === 200) {
-                        const trElement = button.closest('tr');
-                        if (trElement) {
-                            trElement.remove();
+                        const productCart = button.closest('.productCart');
+                        if (productCart) {
+                            productCart.remove();
+                            const productCartElement = document.querySelector('.productCart');
+
+                            if (!productCartElement) {
+                                let newElement = document.createElement('div');
+                                
+                                newElement.className = 'row d-flex justify-content-center align-items-center h-100';
+                                newElement.innerHTML = `
+                                    <div class="col-10">
+                                        <div class="d-flex justify-content-between align-items-center mb-4">
+                                            <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
+                                        </div>
+                                        <h1>No products in cart</h1>
+                                    </div>
+                                `;
+                                
+                                const containerElement = document.getElementById('cartContent');
+                                
+                                // Clear and save
+                                containerElement.innerHTML = '';
+                                containerElement.appendChild(newElement);
+                            }
+
+
+
                         }
                     }
                 })
