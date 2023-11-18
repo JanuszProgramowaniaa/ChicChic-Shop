@@ -1,28 +1,34 @@
 {% set filterMinPrice = app.request.cookies.get('filterMinPrice') %}
 {% set filterMaxPrice = app.request.cookies.get('filterMaxPrice') %}
-<div class="col-6">
-    <div class='col-3 d-flex align-items-start gap-1 mb-2 flex-column'>
-        <b>Cena</b>
-        <div class = 'd-flex gap-2 col-6'>
-            <input type="number" id="filterMinPrice" name="filterMinPrice" value ="{{filterMinPrice}}" class="form-control form-control-sm" min="0" oninput="this.value = Math.abs(this.value)"> - 
-            <input type="number" id="filterMaxPrice" name="filterMaxPrice" value ="{{filterMaxPrice}}" class="form-control form-control-sm" min="0" oninput="this.value = Math.abs(this.value)">
-        </div>
-    </div>
-    <div class="d-flex flex-column gap-2 col-6">
-        <div class="d-flex align-items-start mt-1 flex-column">
-            {% set filterBestseller = app.request.cookies.get('filterBestseller') %}
-            <div class="form-check">
-                <label class="form-check-label" for="filterBestseller"> Bestsellers</label>
-                <input class="form-check-input" type="checkbox" id="filterBestseller" name="filterBestseller" value="1" {% if filterBestseller == '1' %} checked {% endif %}>
+<div class="col-8 ">
+    <div class='col-12 d-flex align-items-start gap-1 mb-2 flex-column'>
+        <b>Price</b>
+        <div class='d-flex gap-2'>
+            <div class='col-6'>
+                <input type="number" style="border-radius: 15px;" id="filterMinPrice" name="filterMinPrice" value="{{filterMinPrice}}" class="form-control form-control-sm" min="0" oninput="this.value = Math.abs(this.value)">
             </div>
+            <span class="align-self-center">-</span>
+            <div class='col-6'>
+                <input type="number" style="border-radius: 15px;" id="filterMaxPrice" name="filterMaxPrice" value="{{filterMaxPrice}}" class="form-control form-control-sm" min="0" oninput="this.value = Math.abs(this.value)">
+            </div> 
+            <div class="d-flex align-items-center">PLN</div>
+        </div> 
+    </div>
+    <div class="d-flex flex-column gap-2 col-12">
+        <div class="form-check">
+            {% set filterBestseller = app.request.cookies.get('filterBestseller') %}
+            <label class="form-check-label" for="filterBestseller">
+                <input class="form-check-input" type="checkbox" id="filterBestseller" name="filterBestseller" value="1" {% if filterBestseller == '1' %} checked {% endif %}>
+                Bestsellers
+            </label>
         </div>
 
-        <div class="d-flex align-items-start mt-1 flex-column col-6">
+        <div class="form-check">
             {% set filterLatest = app.request.cookies.get('filterLatest') %}
-            <div class="form-check">
-                <label class="form-check-label" for="filterLatest"> Latest</label>
+            <label class="form-check-label" for="filterLatest">
                 <input class="form-check-input" type="checkbox" id="filterLatest" name="latest" value="1" {% if filterLatest == '1' %} checked {% endif %}>
-            </div>
+                Latest
+            </label>
         </div>
     </div>
 </div>
