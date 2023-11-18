@@ -24,13 +24,6 @@
                                 <td class="d-flex align-items-start">
                                     <img src="{{ asset('images/products/' ~ entry.product.id ~ '.png') }}" alt="{{ entry.product.name }}" width="200" height="200"  />
                                 </td>
-                                <td class="d-md-none text-end">
-                                    <button data-product-id="{{ entry.product.id }}" 
-                                            type="button" 
-                                            class="btn-close" 
-                                            aria-label="Close">
-                                    </button>
-                                </td>
                                 <td class="text-start">
                                     <a href="#" class="link">
                                         {{ entry.product.name|length > 24 ? entry.product.name|slice(0, 24) ~ '…' : entry.product.name }}
@@ -39,9 +32,9 @@
                                 <td>{{ entry.quantity }}</td>
                                 <td>{{ entry.product.getPrice }}</td>
                                 <td class="d-none d-md-table-cell text-end">
-                                    <button data-product-id="{{ entry.product.id }}" 
+                                    <button data-idproduct="{{ entry.product.id }}" 
                                             type="button" 
-                                            class="btn-close" 
+                                            class="btn-close removeProductInCartBtn" 
                                             aria-label="Close">
                                     </button>
                                 </td>

@@ -73,6 +73,44 @@ class ShoppingCartController extends AbstractController
     }
 
 
+
+    /**
+     * @param Request $request
+     * @param CartManager $cartManager
+     * @param ProductRepository $productRepository
+     */
+    #[Route(path: '/cart/remove', name: 'app_shopping_cart_remove', methods: ['POST'])]
+    public function remove(Request $request, CartManager $cartManager, ProductRepository $productRepository): JsonResponse
+    {
+        if ($request->getMethod() === 'POST') {
+
+            $requestData = json_decode($request->getContent());
+
+            $cart = $cartManager->getCurrentCart();
+            $productId = $requestData->idproduct;
+            $product = $productRepository->find($productId);
+            
+            $entry = $cart->getFilteredShoppingCartEntry('product', $product)->first();
+
+            if ($entry) {
+             
+                $cart->removeShoppingCartEntry($entry);
+                $cart->setProductsum($cart->getProductsum() - $entry->getQuantity() * $product->getPrice());
+                $cartManager->save($cart);
+
+                $msg = "Product with ID {$productId} removed from the cart.";
+
+                return $this->json(["msg" => $msg], JsonResponse::HTTP_OK);
+            } else {
+                $msg = "Product with ID {$productId} not found in the cart.";
+                return $this->json(["msg" => $msg], JsonResponse::HTTP_NOT_FOUND);
+            }
+        }
+
+        throw new NotFoundHttpException('Brak strony');
+    }
+
+
   
   
 
