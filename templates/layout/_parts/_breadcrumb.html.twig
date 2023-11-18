@@ -4,7 +4,7 @@
         {% set menu = knp_menu_get('MenuTree') %} 
 
         {% if current_path != 'app_index' %}
-            <div class="container breadcrumbs">
+            <div class="container-fluid ms-5 breadcrumbs">
                 {{ knp_menu_render(categoryMenu, {
                     'currentClass': 'active',
                     'class':'breadcrumbs',
