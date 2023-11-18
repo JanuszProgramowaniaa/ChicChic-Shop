@@ -19,7 +19,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify(data),
             })
             .then(response => response.json())
-            .then(data => alert('Dodano produkt'))
+            .then(data => {
+                const cartConfirmationModal = new bootstrap.Modal(document.getElementById('cartConfirmationModal'));
+                cartConfirmationModal.show();
+            })
             .catch(error => console.error('Error:', error));
         });
     }

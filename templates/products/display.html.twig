@@ -97,7 +97,24 @@
 </section>
 
 
-
+<div class="modal fade" id="cartConfirmationModal" tabindex="-1" aria-labelledby="cartConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="cartConfirmationModalLabel">The product has been added to the cart</h1>
+            </div>
+        
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                    Continue shopping
+                </button>
+                <a href="{{ path('app_shopping_cart') }}" class="btn btn-primary text-white">
+                    Go to cart
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
