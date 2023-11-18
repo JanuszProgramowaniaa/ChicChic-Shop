@@ -79,6 +79,7 @@ class MenuBuilder
             
             $menu['index']->addChild('headerMenu')->setChildrenAttribute('class', 'list-unstyled m-0 d-flex justify-content-evenly gap-3')->setAttribute('class', 'd-none');
             $menu['index']['headerMenu']->addChild('Contact',  ['uri' => $this->router->generate('app_contact_index')]);
+            $menu['index']['headerMenu']->addChild('Account',  ['uri' => $this->router->generate('app_account_index')]);
 
             $menu['index']['headerMenu']->addChild('Shopping Cart',  ['uri' => $this->router->generate('app_shopping_cart')]);
 

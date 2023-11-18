@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         <div class="d-flex justify-content-between align-items-center mb-4">
                                             <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
                                         </div>
-                                        <h1>No products in cart</h1>
+                                        <h1 class="d-flex justify-content-center mt-5">No products in cart</h1>
                                     </div>
                                 `;
                                 
