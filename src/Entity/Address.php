@@ -31,9 +31,6 @@ class Address
     #[ORM\Column(length: 255)]
     private ?string $zip = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $language = null;
-
     #[ORM\OneToOne(targetEntity: "User", inversedBy: "address", cascade: ["persist", "remove"])]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id", nullable: false)]
     private $user;
@@ -115,17 +112,6 @@ class Address
         return $this;
     }
 
-    public function getLanguage(): ?string
-    {
-        return $this->language;
-    }
-
-    public function setLanguage(string $language): static
-    {
-        $this->language = $language;
-
-        return $this;
-    }
 
     public function getUser(): ?User
     {
