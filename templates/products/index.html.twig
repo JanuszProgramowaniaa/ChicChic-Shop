@@ -7,6 +7,8 @@
         </div>
     {% else %}
 
+        <h1 id="categoryNameHeader" class="ms-5">All products</h1>
+     
         <div class="row align-items-center">
                 <div class="col-12 d-flex align-items-center justify-content-end mb-2">
                     <label for="sort" class="col-auto me-2">Sort by:</label>
@@ -40,5 +42,28 @@
             
         </div>
     {% endif %}
-  
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentRoute = "{{app.request.attributes.get('_route')}}";
+        if (currentRoute === 'app_products_category') {
+
+            const breadcrumbsContainer = document.querySelector('.breadcrumbs');
+            if (breadcrumbsContainer) {
+      
+                const lastAnchor = breadcrumbsContainer.querySelector('ul li:last-child a');
+
+                if (lastAnchor) {
+                    const categoryName = lastAnchor.textContent || lastAnchor.innerText;
+                    categoryNameHeader.innerHTML = categoryName;
+                }
+            }
+            
+           
+        }
+       
+    });
+
+
+  </script>
 {% endblock %}
