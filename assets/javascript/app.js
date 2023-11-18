@@ -1,4 +1,4 @@
-import "./scripts/products/?v3";
-import "./scripts/products/layout/_parts/_alert.js";
+import "./scripts/products/index.js";
+import "./scripts/layout/_parts/_alert.js";
 import "./scripts/cart/index.js";
 
