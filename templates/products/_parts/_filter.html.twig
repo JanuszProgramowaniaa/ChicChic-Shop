@@ -1,36 +1,28 @@
-<label for="sort" class="col-auto me-2">Sort by:</label>
-<div class="col-auto">
-    {% set selectedSort = app.request.cookies.get('selectedSort') %}
-    <select class="form-select" name="sort" id="sort">
-        <option value="price_asc" {% if selectedSort == 'price_asc' %} selected {% endif %}>Price: Low to High</option>
-        <option value="price_desc" {% if selectedSort == 'price_desc' %} selected {% endif %}>Price: High to Low</option>
-        <option value="name_asc" {% if selectedSort == 'name_asc' %} selected {% endif %}>Product Names: A to Z</option>
-        <option value="name_desc" {% if selectedSort == 'name_desc' %} selected {% endif %}>Product Names: Z to A</option>
-    </select>
-</div>
-<div class="d-flex gap-2">
-    <div class="d-flex align-items-center mt-1">
+{% set filterMinPrice = app.request.cookies.get('filterMinPrice') %}
+{% set filterMaxPrice = app.request.cookies.get('filterMaxPrice') %}
+<div class="col-6">
+    <div class='col-3 d-flex align-items-start gap-1 mb-2 flex-column'>
+        <b>Cena</b>
+        <div class = 'd-flex gap-2 col-6'>
+            <input type="number" id="filterMinPrice" name="filterMinPrice" value ="{{filterMinPrice}}" class="form-control form-control-sm" min="0" oninput="this.value = Math.abs(this.value)"> - 
+            <input type="number" id="filterMaxPrice" name="filterMaxPrice" value ="{{filterMaxPrice}}" class="form-control form-control-sm" min="0" oninput="this.value = Math.abs(this.value)">
+        </div>
+    </div>
+    <div class="d-flex flex-column gap-2 col-6">
+        <div class="d-flex align-items-start mt-1 flex-column">
             {% set filterBestseller = app.request.cookies.get('filterBestseller') %}
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="filterBestseller" name="filterBestseller" value="1" {% if filterBestseller == '1' %} checked {% endif %}>
                 <label class="form-check-label" for="filterBestseller"> Bestsellers</label>
+                <input class="form-check-input" type="checkbox" id="filterBestseller" name="filterBestseller" value="1" {% if filterBestseller == '1' %} checked {% endif %}>
             </div>
         </div>
-        <div class="d-flex align-items-center mt-1">
+
+        <div class="d-flex align-items-start mt-1 flex-column col-6">
             {% set filterLatest = app.request.cookies.get('filterLatest') %}
             <div class="form-check">
+                <label class="form-check-label" for="filterLatest"> Latest</label>
                 <input class="form-check-input" type="checkbox" id="filterLatest" name="latest" value="1" {% if filterLatest == '1' %} checked {% endif %}>
-                <label class="form-check-label " for="filterLatest"> Latest</label>
             </div>
         </div>
     </div>
-</div>
-{% set filterMinPrice = app.request.cookies.get('filterMinPrice') %}
-{% set filterMaxPrice = app.request.cookies.get('filterMaxPrice') %}
-<div class='col-3 d-flex align-items-center gap-1 mb-2'>
-    <label for="filterMinPrice" class="form-label text-nowrap mb-0">Min Price:</label>
-    <input type="number" id="filterMinPrice" name="filterMinPrice" value ="{{filterMinPrice}}" class="form-control form-control-sm" min="0" oninput="this.value = Math.abs(this.value)">
-
-    <label for="filterMaxPrice" class="form-label text-nowrap mb-0 ms-2">Max Price:</label>
-    <input type="number" id="filterMaxPrice" name="filterMaxPrice" value ="{{filterMaxPrice}}" class="form-control form-control-sm" min="0" oninput="this.value = Math.abs(this.value)">
 </div>
