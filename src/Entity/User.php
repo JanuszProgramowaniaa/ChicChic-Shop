@@ -35,6 +35,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(targetEntity: ShoppingCart::class, mappedBy: 'User', cascade: ['persist', 'remove'])]
     private $shoppingCart;
 
+    #[ORM\OneToOne(targetEntity: Address::class, mappedBy: 'user')]
+    private $address;
+
 
     public function getId(): ?int
     {
@@ -133,6 +136,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->shoppingCart = $shoppingCart;
 
         return $this;
+    }
+
+    public function getAddress(): ?Address
+    {
+        return $this->address;
     }
 
 
