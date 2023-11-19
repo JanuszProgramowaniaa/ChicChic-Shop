@@ -71,15 +71,15 @@
             {% set currentPath = app.request.attributes.get('_route') %}
             {% set slug = app.request.get('slug') %}
 
-           <form id="search-form" data-search-url="{{ path('app_products_search', {'slug': 'value', 'page': 1}) }}" method="GET" class="d-flex align-items-center">
-                <div class="input-group">
-                    <input type="text" style="border-radius: 15px;" name="search" class="form-control me-1" placeholder="Search products..." value="{% if slug is defined and slug != ' ' %}{{ slug }}{% endif %}">
-                    <button type="submit" class="btn btn-primary" style="border-radius: 15px; ">
-                    <div class="d-flex align-items-center justify-content-center search-bar-button" id="searchProductBtn">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.6667 7C11.6667 9.57733 9.57733 11.6667 7 11.6667C4.42267 11.6667 2.33333 9.57733 2.33333 7C2.33333 4.42267 4.42267 2.33333 7 2.33333C9.57733 2.33333 11.6667 4.42267 11.6667 7ZM11.0135 12.7359C9.87711 13.5325 8.49315 14 7 14C3.13401 14 0 10.866 0 7C0 3.13401 3.13401 0 7 0C10.866 0 14 3.13401 14 7C14 8.49315 13.5325 9.87711 12.7359 11.0135L18 16.2776L16.2776 18L11.0135 12.7359Z" fill="white"></path>
-                        </svg>
-                    </div>
+            <form id="search-form" data-search-url="{{ path('app_products_search', {'slug': 'value', 'page': 1}) }}" method="GET" class="d-flex align-items-center ms-5">
+                <div class="input-group position-relative">
+                    <input type="text" style="border-radius: 15px; padding-right: 40px; z-index: 1;" name="search" class="form-control me-1" placeholder="Search products..." value="{% if slug is defined and slug != ' ' %}{{ slug }}{% endif %}">
+                    <button type="submit" class="btn btn-primary position-absolute end-0" style="border-radius: 15px; top: 50%; transform: translateY(-50%); height: 100%; z-index: 2;">
+                        <div class="d-flex align-items-center justify-content-center search-bar-button" id="searchProductBtn">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.6667 7C11.6667 9.57733 9.57733 11.6667 7 11.6667C4.42267 11.6667 2.33333 9.57733 2.33333 7C2.33333 4.42267 4.42267 2.33333 7 2.33333C9.57733 2.33333 11.6667 4.42267 11.6667 7ZM11.0135 12.7359C9.87711 13.5325 8.49315 14 7 14C3.13401 14 0 10.866 0 7C0 3.13401 3.13401 0 7 0C10.866 0 14 3.13401 14 7C14 8.49315 13.5325 9.87711 12.7359 11.0135L18 16.2776L16.2776 18L11.0135 12.7359Z" fill="white"></path>
+                            </svg>
+                        </div>
                     </button>
                 </div>
             </form>
