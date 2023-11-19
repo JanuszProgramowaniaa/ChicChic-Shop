@@ -27,18 +27,23 @@ class ContactController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+       
+            try{
+                $email = (new Email())
+                    ->from($data['email'])
+                    ->to($_ENV['MAILER_FROM'])
+                    ->subject('Contact')
+                    ->text('Email: ' . $data['email'] . "\nMessage: " . $data['message']);
+                
+                $mailer->send($email);
+
+            }catch(Exception $e){
+                $this->addFlash('error', 'Error sending mail');
+                return $this->redirectToRoute('app_contact_index');
+            }
     
-            $email = (new Email())
-                ->from('your_email@example.com')
-                ->to('recipient@example.com')
-                ->subject('Contact Form Submission')
-                ->text('Email: ' . $data['email'] . "\nMessage: " . $data['message']);
-    
-            $mailer->send($email);
-    
-            $form->clear(); 
-          
-            return $this->redirectToRoute('homepage');
+            $this->addFlash('success', 'Email was sent');
+            return $this->redirectToRoute('app_contact_index');
         }
 
         return $this->render('contact/index.html.twig', [
