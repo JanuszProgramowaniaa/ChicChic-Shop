@@ -5,11 +5,11 @@
         <b>Price</b>
         <div class='d-flex gap-2'>
             <div class='col-6'>
-                <input type="number" style="border-radius: 15px;" id="filterMinPrice" name="filterMinPrice" value="{{filterMinPrice}}" class="form-control form-control-sm" min="0" oninput="this.value = Math.abs(this.value)">
+                <input type="number" id="filterMinPrice" name="filterMinPrice" value="{{filterMinPrice}}" class="form-control form-control-sm filter-price" min="0" oninput="this.value = Math.abs(this.value)">
             </div>
             <span class="align-self-center">-</span>
             <div class='col-6'>
-                <input type="number" style="border-radius: 15px;" id="filterMaxPrice" name="filterMaxPrice" value="{{filterMaxPrice}}" class="form-control form-control-sm" min="0" oninput="this.value = Math.abs(this.value)">
+                <input type="number" id="filterMaxPrice" name="filterMaxPrice" value="{{filterMaxPrice}}" class="form-control form-control-sm filter-price" min="0" oninput="this.value = Math.abs(this.value)">
             </div> 
             <div class="d-flex align-items-center">PLN</div>
         </div> 
