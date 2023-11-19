@@ -1,0 +1,56 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block title %}Chick Chick Shop - About Us{% endblock %}
+
+{% block content %}
+  <section class="about-us">
+    <div class="container">
+      <h2>Welcome to ChicChic Shop - Your Ultimate Jewelry Destination</h2>
+      
+      <p>
+        At ChicChic Shop, we believe that jewelry is not just an accessory; it's a reflection of your unique style and personality.
+        Our passion for craftsmanship and exquisite design is at the heart of everything we do.
+      </p>
+
+      <p>
+        Founded with the vision of bringing timeless elegance to your everyday life, ChicChic Shop offers a curated collection
+        of high-quality jewelry pieces that blend classic sophistication with modern trends.
+      </p>
+
+      <h3>Our Values</h3>
+      <ul>
+        <li><strong>Quality:</strong> Each piece in our collection is crafted with precision and attention to detail.</li>
+        <li><strong>Style:</strong> We stay ahead of fashion trends to offer you the latest and most stylish designs.</li>
+        <li><strong>Individuality:</strong> Express your unique style with our diverse range of jewelry options.</li>
+      </ul>
+
+      <h3>Our Collection</h3>
+      <div class="image-gallery">
+          <img src="{{ asset('images/aboutUs/1.jpg') }}" alt="Rings">
+      </div>
+
+      <p>
+        From stunning necklaces to elegant earrings, our collection caters to every occasion, whether it's a casual day
+        out or a special event. Discover the perfect piece to complement your outfit and make a statement.
+      </p>
+
+      <div class="image-gallery">
+          <img src="{{ asset('images/aboutUs/2.jpg') }}" alt="Rings">
+      </div>
+
+      <p>
+        Your satisfaction is our top priority. We are committed to providing excellent customer service and ensuring that
+        your ChicChic Shop experience is nothing short of exceptional.
+      </p>
+
+      <div class="image-gallery">
+        <img src="{{ asset('images/aboutUs/3.jpg') }}" alt="Rings">
+      </div>
+
+      <p>
+        Thank you for choosing ChicChic Shop as your go-to destination for beautiful and meaningful jewelry.
+        Explore our collection and find the perfect pieces to enhance your style journey.
+      </p>
+    </div>
+  </section>
+{% endblock %}
