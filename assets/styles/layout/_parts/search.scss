@@ -1,0 +1,40 @@
+#search-form {
+    display: flex;
+    align-items: center;
+    margin-left: 5px; // Możesz dostosować marginesy według potrzeb
+
+    .input-group {
+        position: relative;
+        flex: 1; // Wypełnij dostępną przestrzeń
+
+        .form-control {
+            border-radius: 15px;
+            padding-right: 40px; // Zmieniłem padding na 40px
+            z-index: 1;
+            margin-right: 5px; // Dodaj lekki margines od innych elementów
+        }
+
+        .btn-primary {
+            position: absolute;
+            right: 5px; // Dodaj margines z prawej strony
+            top: 0;
+            bottom: 0;
+            margin: auto; // Dostosuj margines, aby centrować przycisk
+            border-radius: 15px;
+            z-index: 2;
+
+            .search-bar-button {
+                width: 30px; // Zmieniłem szerokość na 30px
+                height: 100%; // Zmieniłem wysokość na 100%
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                svg {
+                    width: 18px; // Dostosuj rozmiar SVG, jeśli to konieczne
+                    height: 18px; // Dostosuj rozmiar SVG, jeśli to konieczne
+                }
+            }
+        }
+    }
+}
