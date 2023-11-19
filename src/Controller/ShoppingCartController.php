@@ -29,6 +29,7 @@ class ShoppingCartController extends AbstractController
      * @param cartManager $cartManager                                                                           
      * @param ShoppingCartEntryRepository  $shoppingCartEntryRepository        
      *
+     * @return Response
      */
     #[Route(path: '/cart', name: 'app_shopping_cart', methods: ['GET'])]
     public function index(Security $security, CartManager $cartManager, ShoppingCartEntryRepository $shoppingCartEntryRepository): Response
@@ -42,7 +43,9 @@ class ShoppingCartController extends AbstractController
      *             
      * @param request $request                               
      * @param cartManager $cartManager                    
-     * @param ProductRepository $productRepository                                          
+     * @param ProductRepository $productRepository    
+     * 
+     * @return JsonResponse                                      
      */
     #[Route(path: '/cart/add', name: 'app_shopping_cart_add', methods: ['POST'],)]
     public function add(Request $request, CartManager $cartManager, ProductRepository $productRepository): JsonResponse
@@ -56,10 +59,12 @@ class ShoppingCartController extends AbstractController
             $product = $productRepository->find($request->idproduct);
 
             $entry = new ShoppingCartEntry();
+
             $entry->setShoppingCart($cart);
             $entry->setQuantity($request->quantity);
             $entry->setProduct($product);
-            
+            $entry->setPrice($product->getPrice() * $request->quantity );
+
             $cart->addShoppingCartEntry($entry);
             $cart->setProductsum($cart->getProductsum()+$request->quantity*$product->getPrice());
             
@@ -72,12 +77,61 @@ class ShoppingCartController extends AbstractController
         throw new NotFoundHttpException('Brak strony');
     }
 
+    /**
+     * Edit quantity product in shoppingcart
+     *
+     * @param request $request                               
+     * @param cartManager $cartManager                      
+     * @param ProductRepository $itemRepository    
+     * 
+     * @return JsonResponse               
+     */
+    #[Route(path: '/cart/edit', name: 'app_shopping_cart_edit', methods: ['POST'])]
+    public function edit(Request $request, CartManager $cartManager, ProductRepository $productRepository): JsonResponse
+    {
+        if($request->getMethod() === 'POST') {
+
+            $request = json_decode($request->getContent());
+            $idproduct = $request->idproduct;
+            $quantity = $request->quantity;
+      
+            $cart = $cartManager->getCurrentCart();
+
+            $product = $productRepository->find($idproduct);
+
+            if(($sce = $cart->getFilteredShoppingCartEntry("product", $product))!==null){
+   
+                $entry = $sce->current();
+                $entry->setQuantity($quantity);
+        
+                $sum = 0;
+                foreach($cart->getShoppingCartEntry() as $scentry){
+                    $sum += $scentry->getEntrySum();
+                }
+
+                $entry->setQuantity($quantity);
+                $entry->setPrice($quantity * $product->getPrice());
+                $cart->setProductsum($sum);
+
+                $cartManager->save($cart);
+
+            }else{
+                return $this->json(['There is no such product in the cart'], $status = 200);
+            }
+
+            return $this->json(['info'=>'The quantity of products has been changed', 'price'=> floatval($entry->getPrice()), 'productSum'=> $cart->getProductsum() ], $status = 200);
+        }
+
+        throw new NotFoundHttpException($translator->trans('Brak strony'));
+    }
 
 
     /**
      * @param Request $request
      * @param CartManager $cartManager
      * @param ProductRepository $productRepository
+     * 
+     * @return JsonResponse
      */
     #[Route(path: '/cart/remove', name: 'app_shopping_cart_remove', methods: ['POST'])]
     public function remove(Request $request, CartManager $cartManager, ProductRepository $productRepository): JsonResponse

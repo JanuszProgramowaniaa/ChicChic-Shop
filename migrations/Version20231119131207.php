@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231118193214 extends AbstractMigration
+final class Version20231119131207 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,12 +20,12 @@ final class Version20231118193214 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE address DROP language');
+        $this->addSql('ALTER TABLE shopping_cart_entry DROP price');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE address ADD language VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE shopping_cart_entry ADD price NUMERIC(10, 2) NOT NULL');
     }
 }

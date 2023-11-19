@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ShoppingCartEntryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ShoppingCartEntryRepository::class)]
@@ -25,6 +26,9 @@ class ShoppingCartEntry
     #[ORM\ManyToOne(targetEntity: Product::class)]
     #[ORM\JoinColumn(name: 'product_id', referencedColumnName: 'id', nullable: false)]
     private $product;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $price = null;
 
 
     public function __construct()
@@ -75,7 +79,19 @@ class ShoppingCartEntry
 
     public function getEntrySum(): float
     {
-        return $this->product-getPrice()*$this->quantity;
+        return $this->product->getPrice() * $this->quantity;
+    }
+
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(string $price): static
+    {
+        $this->price = $price;
+
+        return $this;
     }
 
 

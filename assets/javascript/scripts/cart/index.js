@@ -27,6 +27,49 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    const quantityInputs = document.querySelectorAll('.productQuantity');
+    if (quantityInputs) {
+        quantityInputs.forEach(function(input) {
+            input.addEventListener('change', function() {
+                idproduct = input.dataset.idproduct;
+                quantity = input.value;
+               
+                const url = '/cart/edit';
+                const data = {
+                    idproduct,
+                    quantity
+                };
+    
+                fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const price = data.price;
+                    const productSum = data.productSum;
+                  
+                    const productCartElement = input.closest('.productCart');
+                    const productSumElement = document.getElementById('productSum');
+                   
+                    if (productCartElement) {
+                        const productPriceElement = productCartElement.querySelector('.productPrice'); 
+                    
+                        if (productPriceElement) {
+                            productPriceElement.innerHTML = price.toFixed(2) + ' PLN';
+                            productSumElement.innerHTML = productSum;
+                        } else {
+                            console.error('Element with class "productPrice" not found inside "productCart" element');
+                        }
+                    } else {
+                        console.error('Ancestor element with class "productCart" not found');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    }
+
     const removeButtons = document.querySelectorAll('.removeProductInCartBtn');
     if (removeButtons) {
         removeButtons.forEach(function(button) {
@@ -68,8 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 containerElement.innerHTML = '';
                                 containerElement.appendChild(newElement);
                             }
-
-
 
                         }
                     }
