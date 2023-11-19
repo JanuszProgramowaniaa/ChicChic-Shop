@@ -24,6 +24,13 @@ class CartSessionStorage
      */
     private $shoppingCartRepository;
 
+     /**
+     * The security.
+     *
+     * @var Security
+     */
+    private $security;
+
     /**
      * @var string
      */
