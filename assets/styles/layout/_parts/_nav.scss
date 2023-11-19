@@ -1,0 +1,24 @@
+.breadcrumb-dropdown {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+
+.breadcrumb-dropdown a {
+    color: #495057;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.breadcrumb-dropdown a:hover {
+    background-color: #e9ecef;
+}
+
+.breadcrumb-dropdown li {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.breadcrumb-dropdown ul {
+    padding-left: 0; 
+}
