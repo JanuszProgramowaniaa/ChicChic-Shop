@@ -83,6 +83,16 @@ Fields are validated on the server side.
 They cannot be empty and the first field must have the structure of an e-mail.
 ![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/contact.jpg)
 
+### Account
+The view shows the user's address information. The form is validated and fully editable.
+![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/account.jpg)
+
+### Cart
+The view shows a shopping cart.
+The quantity is editable, all prices are changed dynamically using Ajax.
+Removal takes place in the same way dynamically using Ajax and using JavaScript we remove the element without refreshing the page.
+![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/cart.jpg)
+
 
 
 
