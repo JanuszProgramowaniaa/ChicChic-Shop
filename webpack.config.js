@@ -11,6 +11,7 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('account', './assets/styles/account/style.scss')
     .addEntry('about', './assets/styles/aboutUs/style.scss')  
+    
 
     .splitEntryChunks()
     .enableSingleRuntimeChunk()

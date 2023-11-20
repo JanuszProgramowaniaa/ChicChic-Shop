@@ -1,0 +1,65 @@
+.product-link {
+    text-decoration: none;
+    position: relative;
+    color: #333;
+}
+
+.product-card {
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-body {
+    position: relative;
+}
+
+.product-title {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.bestseller-badge,
+.latest-badge {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    position: absolute;
+    top: 5px;
+}
+
+.bestseller-badge {
+    background-color: #3498db;
+    color: white;
+    left: 5px;
+}
+
+.latest-badge {
+    background-color: #f39c12;
+    color: black;
+    left: auto;
+    right: 5px;
+}
+
+.symbol-text {
+    font-size: 14px;
+}
+
+.product-image {
+    display: block;
+    margin: 0 auto;
+    padding: 5px;
+
+    max-width: 100%;
+    max-height: 200px; 
+}
+
+.product-price {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.price-value {
+    color: #3498db;
+    font-weight: bold;
+}
