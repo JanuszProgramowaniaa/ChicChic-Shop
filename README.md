@@ -60,7 +60,7 @@ View of the main page with a menu with categories that we can enter.
 The view shows a collection of all products.
 We are on the second page of pagination.
 Paging is done on the server side.
-![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/products1.jpg)
+![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/products.jpg)
 
 
 ### Filter
@@ -91,7 +91,7 @@ The view shows the user's address information. The form is validated and fully e
 The view shows a shopping cart.
 The quantity is editable, all prices are changed dynamically using Ajax.
 Removal takes place in the same way dynamically using Ajax and using JavaScript we remove the element without refreshing the page.
-![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/cart.jpg)
+![Image](https://github.com/JanuszProgramowaniaa/ChicChic-Shop/blob/main/public/images/screenshots/cart2.jpg)
 
 
 
