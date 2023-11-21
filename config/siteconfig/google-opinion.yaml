@@ -1,0 +1,31 @@
+opinions:
+  - user: Maria Nowak
+    date: 9 months ago
+    comment: "I am absolutely delighted with the beautiful jewelry I purchased from this store. The craftsmanship is impeccable, and the attention to detail is outstanding. The pieces are not only stunning but also of high quality. The customer service exceeded my expectations, and the delivery was prompt. I highly recommend this store for anyone looking for exquisite and unique jewelry. I will definitely be a repeat customer!"
+    rate: 5
+    avatar: 'images\google-opinion\1.jpg'
+  - user: Andrzej Kowalski
+    date: a year ago
+    comment: "The experience with this store was fantastic. I received my order quickly, and the customer service was exceptional. The staff was helpful and responsive to my inquiries. The jewelry I purchased is of great quality and reasonably priced. I highly recommend this store to anyone in search of beautiful jewelry and a positive shopping experience."
+    rate: 5
+    avatar: 'images\google-opinion\2.jpg'
+  - user: Anna Wisniewska
+    date: 9 months ago
+    comment: "I recently bought wedding rings from this store, and I couldn't be happier with my purchase. The craftsmanship is exquisite, and the designs are breathtaking. The entire process, from ordering to delivery, was smooth and efficient. I appreciate the attention to detail in every piece. I highly recommend this store for those seeking high-quality, elegant jewelry."
+    rate: 5
+    avatar: 'images\google-opinion\3.jpg'
+  - user: Piotr Kowalczyk
+    date: a year ago
+    comment: "I chose this store to buy a special piece of jewelry for my girlfriend, and it was the perfect choice. The selection is diverse, and the quality is exceptional. The customer service team was helpful, guiding me through the options and assisting with my purchase. The piece I bought was well-received and made for a memorable gift. I will definitely return for future purchases."
+    rate: 4
+    avatar: 'images\google-opinion\4.jpg'
+  - user: Katarzyna Jankowska
+    date: 9 months ago
+    comment: "Absolutely classy! The jewelry at this store is elegant and timeless. I love the attention to detail in each piece. The range of styles and designs is impressive, catering to various tastes. The ordering process was straightforward, and the delivery was prompt. I'm thrilled with my purchase and would highly recommend this store to anyone looking for sophisticated and beautiful jewelry."
+    rate: 5
+    avatar: 'images\google-opinion\5.jpg'
+  - user: Michał Lis
+    date: 10 months ago
+    comment: "My experience with this jewelry store was wonderful. The selection of pieces is impressive, and the quality is top-notch. The staff was friendly and knowledgeable, helping me find the perfect piece. The ordering process was easy, and the delivery was quick. I'm very satisfied with the overall service and the exquisite jewelry I received. I'll be a returning customer for sure!"
+    rate: 5
+    avatar: 'images\google-opinion\6.jpg'

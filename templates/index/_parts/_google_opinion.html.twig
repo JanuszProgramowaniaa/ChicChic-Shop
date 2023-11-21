@@ -1,0 +1,24 @@
+<div class="col-sm-6 col-lg-4 google-opinion-column mt-4">
+    <div class="d-flex flex-column p-3 google-opinion-card">
+        <div class="d-flex google-opinion-avatar-container">
+            <img class="google-opinion-avatar" src="{{ asset(opinion.avatar) }}" alt="Anna Matlak">
+            <div class="d-flex flex-column">
+            <strong class='ms-2'>
+                {{ opinion.user }}
+            </strong>
+            <small class="text-muted ms-2">
+                {{ opinion.date }}
+            </small>
+            </div>
+            <img class="ms-auto google-opinion-logo" src="/images/google_logo.png" alt="google">
+        </div>
+       <div class="star-rating-readonly google-opinion-rating">
+            <div class="star-rating-readonly google-opinion-rating">
+                {% for i in 1..opinion.rate %}
+                    <span></span>
+                {% endfor %}
+            </div>
+        </div>
+        <div>{{ opinion.comment }}</div>
+    </div>
+</div>  

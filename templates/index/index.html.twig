@@ -2,7 +2,11 @@
 
 {% block title %}Chick Chick Shop{% endblock %}
 
+
+
 {% block content %}
+
+  
     <h2 class='d-flex justify-content-center'> Latest products </h2>
     <div id="productSlider" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
     <div class="carousel-inner">
@@ -52,6 +56,15 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+
+    <div class="row google-opinion-container position-relative mt-3">
+        {% for opinion in googleOpinions %}
+            {% include 'index/_parts/_google_opinion.html.twig' %}
+        {% endfor %}
+    </div>
+
+   
+      
 
   
 {% endblock %}

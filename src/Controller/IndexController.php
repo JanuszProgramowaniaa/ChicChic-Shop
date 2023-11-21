@@ -24,10 +24,17 @@ class IndexController extends AbstractController
     {
    
         $cacheTime = 3600;
-        $filePath = '../config/siteconfig/config.yaml';
-        if (file_exists($filePath)) {
-            $cacheTime = Yaml::parseFile($filePath)['config']['cacheTime'];
+        $filePathConfig = '../config/siteconfig/config.yaml';
+        if (file_exists($filePathConfig)) {
+            $cacheTime = Yaml::parseFile($filePathConfig)['config']['cacheTime'];
+        }
+        
+        $googleOpinions = [];
+        $filePathOpinion = '../config/siteconfig/google-opinion.yaml';
+        if (file_exists($filePathOpinion)) {
+            $googleOpinions = Yaml::parseFile($filePathOpinion)['opinions'];
         } 
+     
 
         $cache = new FilesystemAdapter();
 
@@ -49,7 +56,8 @@ class IndexController extends AbstractController
 
         return $this->render('index/index.html.twig', [
             'latestProducts' => $latestProducts,
-            'bestsellerProducts' => $bestsellerProducts
+            'bestsellerProducts' => $bestsellerProducts,
+            'googleOpinions' => $googleOpinions
           
         ]);
     }

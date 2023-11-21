@@ -1,0 +1,50 @@
+.google-opinion-container {
+    z-index: 1;
+
+    .google-opinion-column {
+        flex: 0 0 auto;
+        margin-bottom: 4px; 
+
+        .google-opinion-card {
+            background-color: #F4F4F4;
+            border-radius: 20px;
+            padding: 15px;
+            height: 300px;
+
+            .google-opinion-avatar-container {
+                align-items: center;
+                gap: 3px;
+
+                .google-opinion-avatar {
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 50%; 
+                }
+            }
+
+            .google-opinion-logo {
+                width: 24px;
+                height: 24px;
+            }
+
+            .google-opinion-rating {
+                display: flex;
+                justify-content: flex-start;
+                margin-bottom: 10px; 
+            }
+        }
+    }
+
+    .google-opinion-rating {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 10px; /* Adjust as needed */
+    }
+    
+    .google-opinion-rating span::before {
+        content: "\2605"; /* Kod Unicode dla gwiazdki */
+        font-size: 20px; /* Rozmiar gwiazdki */
+        color: #FFD700; /* Kolor gwiazdki */
+        margin-right: 2px; /* Odstęp między gwiazdkami */
+    }
+}
