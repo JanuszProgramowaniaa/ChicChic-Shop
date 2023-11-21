@@ -7,7 +7,9 @@
 {% block content %}
 
     <div id="banner-container">
-        <img id="banner" src="/images\banners/ring.jpg" alt="Baner_ring">
+        <a class="w-100" href="{{ path('app_products_category', {'categoryId': 4}) }}">
+            <img src="/images/banners/ring.jpg" alt="Baner_ring">
+        </a>
     </div>
   
     <h2 class='d-flex justify-content-start headers mt-5'> Latest products </h2>
