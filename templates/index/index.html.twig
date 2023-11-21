@@ -7,7 +7,7 @@
 {% block content %}
 
   
-    <h2 class='d-flex justify-content-center'> Latest products </h2>
+    <h2 class='d-flex justify-content-start headers'> Latest products </h2>
     <div id="productSlider" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
     <div class="carousel-inner">
        {% for key, product in latestProducts|batch(3) %}
@@ -32,7 +32,7 @@
         </button>
     </div>
 
-    <h2 class='d-flex justify-content-center'> Bestsellers products </h2>
+    <h2 class='d-flex justify-content-start headers'> Bestsellers products </h2>
     <div id="productSlider2" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
     <div class="carousel-inner">
        {% for key, product in bestsellerProducts|batch(3) %}
