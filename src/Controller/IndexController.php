@@ -24,6 +24,8 @@ class IndexController extends AbstractController
     {
    
         $cacheTime = 3600;
+        $cache = new FilesystemAdapter();
+
         $filePathConfig = '../config/siteconfig/config.yaml';
         if (file_exists($filePathConfig)) {
             $cacheTime = Yaml::parseFile($filePathConfig)['config']['cacheTime'];
@@ -32,8 +34,12 @@ class IndexController extends AbstractController
         $googleOpinions = [];
         $filePathOpinion = '../config/siteconfig/google-opinion.yaml';
         if (file_exists($filePathOpinion)) {
-            $googleOpinions = Yaml::parseFile($filePathOpinion)['opinions'];
-        } 
+            $googleOpinions = $cache->get('googleOpinion_Cache', function () use($filePathOpinion) : ?array {
+                $googleOpinions = Yaml::parseFile($filePathOpinion)['opinions'];
+                return $googleOpinions;
+            });
+        }
+  
      
 
         $cache = new FilesystemAdapter();
