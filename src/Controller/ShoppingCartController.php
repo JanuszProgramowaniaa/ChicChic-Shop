@@ -171,9 +171,8 @@ class ShoppingCartController extends AbstractController
      * @return Response
      */
     #[Route(path: '/cart/addressDelivery', name: 'app_shopping_cart_address_delivery', methods: ['GET', 'POST'])]
-    public function addressDelivery(Request $request, Security $security, AddressRepository $addressRepository, EntityManagerInterface  $entityManager): Response
+    public function addressDelivery(Request $request, Security $security, AddressRepository $addressRepository, EntityManagerInterface  $entityManager, CartManager $cartManager): Response
     {
-
         $user = $security->getUser();
 
         if(!$user){
@@ -181,8 +180,14 @@ class ShoppingCartController extends AbstractController
             return $this->redirectToRoute('app_shopping_cart');
         }
 
-        $address = $addressRepository->findOneBy(['user' => $user]);
+        $cart = $cartManager->getCurrentCart();
+   
+        if (count($cart->getShoppingCartEntry()) == 0) {
+            $this->addFlash('error', 'The shopping cart is empty');
+            return $this->redirectToRoute('app_shopping_cart');
+        }
 
+        $address = $addressRepository->findOneBy(['user' => $user]);
         $form = $this->createForm(AddressType::class, $address);
 
         $form->handleRequest($request);
