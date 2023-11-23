@@ -55,8 +55,12 @@
                     <div class="col-3">
                         <input type="number" id="qunatityInput" name="qunatityInput" class="form-control mr-2" value="1" min="1" oninput="validity.valid||(value='');">
                     </div>
-                    <div class="col-auto d-flex">
-                        <button class="btn btn-primary mt-0" id="addToCartBtn" data-idproduct="{{product.id}}">Add to Cart</button>
+                    <div class="col-auto d-flex" id="buttonContainer">
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <button class="btn btn-primary mt-0" id="addToCartBtn" data-idproduct="{{ product.id }}">Add to Cart</button>
+                        {% else %}
+                            <a href="{{ path('app_login') }}" <button class="btn btn-primary mt-0"  data-idproduct="{{ product.id }}"  >Add to Cart</button> </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -132,6 +136,10 @@
             menuItemCategory.innerHTML = `<a href="${url}">{{product.category.name}}</a>`;
         }
     });
+
+    
+
+
 </script>
     
 {% endblock %}
