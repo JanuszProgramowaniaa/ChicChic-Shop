@@ -8,9 +8,7 @@
             <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
             {{ encore_entry_link_tags('app') }}
 
-            {% if app.request.attributes.get('_route') == 'app_account_index' %}
-                {{ encore_entry_link_tags('account') }}
-            {% elseif  app.request.attributes.get('_route') == 'app_shopping_cart_address_delivery'  %}
+            {% if app.request.attributes.get('_route') == 'app_account_index' or app.request.attributes.get('_route') == 'app_shopping_cart_address_delivery' or app.request.attributes.get('_route') == 'app_contact_index'   %}
                 {{ encore_entry_link_tags('account') }}
             {% elseif  app.request.attributes.get('_route') == 'app_about_index'  %}
                 {{ encore_entry_link_tags('about') }}

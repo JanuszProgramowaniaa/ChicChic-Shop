@@ -9,16 +9,14 @@
             <h3>Contact Form</h3>
             {{ form_start(contact_form, {'attr': {'class': 'form-group'}}) }}
                 <div class="mb-3">
-                    {{ form_row(contact_form.email, {'attr': {'class': 'form-control'}}) }}
-                    {% for error in contact_form.email.vars.errors %}
-                        <small class="text-danger">{{ error.message }}</small>
-                    {% endfor %}
+                    {{ form_label(contact_form.email, null, {'class': 'form-label'}) }}
+                    {{ form_widget(contact_form.email, {'attr': {'class': 'form-control'}}) }}
+                    <small class="form-error" >{{ form_errors(contact_form.email) }}</small>
                 </div>
                 <div class="mb-3">
-                    {{ form_row(contact_form.message, {'attr': {'class': 'form-control'}}) }}
-                    {% for error in contact_form.message.vars.errors %}
-                        <small class="text-danger">{{ error.message }}</small>
-                    {% endfor %}
+                    {{ form_label(contact_form.message, null, {'class': 'form-label'}) }}
+                    {{ form_widget(contact_form.message, {'attr': {'class': 'form-control'}}) }}
+                    <small class="form-error" >{{ form_errors(contact_form.message) }}</small>
                 </div>
                 <button type="submit" class="btn btn-primary">Send</button>
             {{ form_end(contact_form) }}
