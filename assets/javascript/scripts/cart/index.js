@@ -1,29 +1,37 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     const addToCartBtn = document.getElementById('addToCartBtn');
-    if(addToCartBtn){
 
-        addToCartBtn.addEventListener('click', function(){
-
+    if (addToCartBtn) {
+        addToCartBtn.addEventListener('click', function () {
             idproduct = addToCartBtn.dataset.idproduct;
-            quantity =  document.getElementById('qunatityInput').value;
-
+            quantity = document.getElementById('qunatityInput').value;
+    
             const url = '/cart/add';
             const data = {
                 idproduct,
                 quantity
             };
-
+    
             fetch(url, {
-            method: 'POST',
+                method: 'POST',
                 body: JSON.stringify(data),
             })
-            .then(response => response.json())
-            .then(data => {
-                const cartConfirmationModal = new bootstrap.Modal(document.getElementById('cartConfirmationModal'));
-                cartConfirmationModal.show();
+            .then(response => {
+                if (response.status === 200) {
+                    const cartConfirmationModal = new bootstrap.Modal(document.getElementById('cartConfirmationModal'));
+                    cartConfirmationModal.show();
+                } else {
+                    throw response.json(); // Rzuć response.json() jako obiekt do bloku catch
+                }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(errorPromise => {
+                errorPromise.then(error => {
+                    showAlert(error.error,'danger')
+                }).catch(innerError => {
+                    showAlert('An error occurred later','danger')
+                });
+            });
         });
     }
 

@@ -1,11 +1,21 @@
-{% for message in app.flashes('success') %}
-    <div class="alert alert-success fixed-top w-100 text-center" role="alert">
-        {{ message }}
-    </div>
-{% endfor %}
+<div id="alertPlaceholder" class="position-fixed w-100 px-3 pt-2" style="top: 0px; z-index: 777;"></div>
+<script>
+       document.addEventListener('DOMContentLoaded', function() {
+        // read and display flash messages
+        {% for message in app.flashes('notice') %}
+            showAlert('{{ message }}', 'info');
+        {% endfor %}
 
-{% for message in app.flashes('error') %}
-    <div class="alert alert-danger fixed-top w-100 text-center" role="alert">
-        {{ message }}
-    </div>
-{% endfor %}
+        {% for message in app.flashes('error') %}
+            showAlert('{{ message }}', 'danger');
+        {% endfor %}
+
+        {% for message in app.flashes('success') %}
+            showAlert('{{ message }}', 'success');
+        {% endfor %}
+
+        {% for message in app.flashes('warning') %}
+            showAlert('{{ message }}', 'warning');
+        {% endfor %}
+    });
+</script>

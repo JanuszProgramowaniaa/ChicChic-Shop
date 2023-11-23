@@ -46,9 +46,14 @@ class ShoppingCartController extends AbstractController
      * @return JsonResponse                                      
      */
     #[Route(path: '/cart/add', name: 'app_shopping_cart_add', methods: ['POST'],)]
-    public function add(Request $request, CartManager $cartManager, ProductRepository $productRepository): JsonResponse
+    public function add(Request $request, CartManager $cartManager, ProductRepository $productRepository, Security $security): JsonResponse
     {
         if($request->getMethod() === 'POST') {
+
+            $user = $security->getUser();
+            if (!$user) {
+                return $this->json(['error' => 'User not logged.'], JsonResponse::HTTP_UNAUTHORIZED);
+            }
                                       
             $request = json_decode($request->getContent());
 
