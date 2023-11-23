@@ -25,17 +25,12 @@ class ShoppingCartController extends AbstractController
 {
     /**  
      *
-     * @param Security $security                                              
-     * @param cartManager $cartManager                                                                           
-     * @param ShoppingCartEntryRepository  $shoppingCartEntryRepository        
-     *
      * @return Response
      */
     #[Route(path: '/cart', name: 'app_shopping_cart', methods: ['GET'])]
-    public function index(Security $security, CartManager $cartManager, ShoppingCartEntryRepository $shoppingCartEntryRepository): Response
+    public function index(): Response
     {
         return $this->render('cart/index.html.twig', [
-            // 'cart' => $cart, -  global variable in twig
         ]);
     }
 
@@ -165,15 +160,18 @@ class ShoppingCartController extends AbstractController
     }
 
 
-  
-  
+    /**
+     * @param Request $request
+     * @param CartManager $cartManager
+     * @param ProductRepository $productRepository
+     * 
+     * @return Response
+     */
+    #[Route(path: '/cart/addressDelivery', name: 'app_shopping_cart_address-delivery', methods: ['GET'])]
+    public function addressDelivery(Request $request, CartManager $cartManager, ProductRepository $productRepository): Response
+    {
+        return $this->render('cart/address_delivery.html.twig', []);
 
-
-  
-
-  
-    
-
-
+    }
 
 }
