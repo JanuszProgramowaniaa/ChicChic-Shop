@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Validator\Constraints\Length;
 
 class AddressType extends AbstractType
 {
@@ -30,7 +31,8 @@ class AddressType extends AbstractType
         ->add('phone', TextType::class, [
             'required' => false,
             'label' => 'Phone',
-            'constraints' => [new NotBlank()],
+            'constraints' => [new NotBlank(),new Length(['max' => 12])],
+            
         ])
         ->add('address', TextType::class, [
             'required' => false,

@@ -14,7 +14,10 @@ use App\Entity\ShoppingCartEntry;
 use App\Repository\ProductRepository;
 use App\Repository\ShoppingCartEntryRepository;
 use App\Repository\UserRepository;
+use App\Repository\AddressRepository;
 use App\Service\CartManager\CartManager;
+use App\Form\AddressType;
+
 
 use DateTime;
 use Exception;
@@ -167,8 +170,8 @@ class ShoppingCartController extends AbstractController
      * 
      * @return Response
      */
-    #[Route(path: '/cart/addressDelivery', name: 'app_shopping_cart_address_delivery', methods: ['GET'])]
-    public function addressDelivery(Request $request, Security $security): Response
+    #[Route(path: '/cart/addressDelivery', name: 'app_shopping_cart_address_delivery', methods: ['GET', 'POST'])]
+    public function addressDelivery(Request $request, Security $security, AddressRepository $addressRepository, EntityManagerInterface  $entityManager): Response
     {
 
         $user = $security->getUser();
@@ -178,8 +181,22 @@ class ShoppingCartController extends AbstractController
             return $this->redirectToRoute('app_shopping_cart');
         }
 
+        $address = $addressRepository->findOneBy(['user' => $user]);
 
-        return $this->render('cart/address_delivery.html.twig', []);
+        $form = $this->createForm(AddressType::class, $address);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($address);
+            $entityManager->flush();
+            
+            $this->addFlash('success', 'Save changes');
+            return $this->redirectToRoute('app_shopping_cart_address_delivery');
+        }
+
+        return $this->render('cart/address_delivery.html.twig', [
+            'address_form' => $form->createView(),]);
 
     }
 

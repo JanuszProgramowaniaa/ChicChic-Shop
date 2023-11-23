@@ -1,11 +1,11 @@
- {% for message in app.flashes('success') %}
-        <div class="alert alert-success d-flex justify-content-center">
-            {{ message }}
-        </div>
-        {% endfor %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success fixed-top w-100 text-center" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
 
-        {% for message in app.flashes('error') %}
-        <div class="alert alert-danger d-flex justify-content-center">
-            {{ message }}
-        </div>
+{% for message in app.flashes('error') %}
+    <div class="alert alert-danger fixed-top w-100 text-center" role="alert">
+        {{ message }}
+    </div>
 {% endfor %}

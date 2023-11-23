@@ -21,7 +21,7 @@ class AccountController extends AbstractController
      * @return Response 
      */
     #[Route('/account', name: 'app_account_index')]
-    public function index(Request $request, Security $security, EntityManagerInterface $em): Response
+    public function index(Request $request, Security $security, EntityManagerInterface  $entityManager): Response
     {
         $user = $security->getUser();
         
@@ -37,8 +37,8 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($address);
-            $em->flush();
+            $entityManager->persist($address);
+            $entityManager->flush();
             
             $this->addFlash('success', 'Save changes');
             return $this->redirectToRoute('app_account_index');

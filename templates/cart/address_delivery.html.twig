@@ -14,60 +14,63 @@
                     <section>
                         <div class="row">
                             <div class="col-12">
-                            <div class="card mb-4">
-                                <div class="card-header py-3">
-                                <h5 class="mb-0">Billing details</h5>
-                                </div>
-                                <div class="card-body">
-                                    <form data-gtm-form-interact-id="0">
-                                
-                                        <div class="row mb-4">
-                                            <div class="col">
-                                                <div class="form-outline">
-                                                <input type="text" id="form6Example1" class="form-control">
-                                                <label class="form-label" for="form6Example1">First name</label>
+                                <div class="card mb-4">
+                                    <div class="card-header py-3">
+                                    <h5 class="mb-0">Billing details - {{ app.user.email }}</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        {{ form_start(address_form, {'attr': {'class': 'fv-plugins-bootstrap5 fv-plugins-framework'}}) }}
+                                    
+                                            <div class="row mb-4">
+                                                <div class="col">
+                                                    <div class="form-outline">
+                                                        {{ form_label(address_form.firstName, null, {'class': 'form-label'}) }}
+                                                        {{ form_widget(address_form.firstName, {'attr': {'class': 'form-control'}}) }}
+                                                        <small class="form-error" >{{ form_errors(address_form.firstName) }}</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-outline">
+                                                        {{ form_label(address_form.lastName, null, {'class': 'form-label'}) }}
+                                                        {{ form_widget(address_form.lastName, {'attr': {'class': 'form-control'}}) }}
+                                                        <small class="form-error" >{{ form_errors(address_form.lastName) }}</small>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col">
-                                                <div class="form-outline">
-                                                <input type="text" id="form6Example2" class="form-control">
-                                                <label class="form-label" for="form6Example2">Last name</label>
-                                                </div>
+
+                                            <div class="form-outline mb-4">
+                                                {{ form_label(address_form.company, null, {'class': 'form-label'}) }}
+                                                {{ form_widget(address_form.company, {'attr': {'class': 'form-control'}}) }}
+                                                <small class="form-error" > {{ form_errors(address_form.company) }}</small>
                                             </div>
-                                        </div>
 
-                                        <div class="form-outline mb-4">
-                                        <input type="text" id="form6Example3" class="form-control">
-                                        <label class="form-label" for="form6Example3">Company name</label>
-                                        </div>
+                                            <div class="form-outline mb-4">
+                                                {{ form_label(address_form.address, null, {'class': 'form-label'}) }}
+                                                {{ form_widget(address_form.address, {'attr': {'class': 'form-control'}}) }}
+                                                <small class="form-error" >{{ form_errors(address_form.address) }}</small>
+                                            </div>
 
-                                        <div class="form-outline mb-4">
-                                        <input type="text" id="form6Example4" class="form-control">
-                                        <label class="form-label" for="form6Example4">Address</label>
-                                        </div>
+                                            <div class="form-outline mb-4">
+                                                {{ form_label(address_form.phone, null, {'class': 'form-label'}) }}
+                                                {{ form_widget(address_form.phone, {'attr': {'class': 'form-control'}}) }}
+                                                <small class="form-error" >{{ form_errors(address_form.phone) }}</small>
+                                            </div>
 
-                                        <div class="form-outline mb-4">
-                                        <input type="email" id="form6Example5" class="form-control">
-                                        <label class="form-label" for="form6Example5">Email</label>
-                                        </div>
+                                                {{ form_label(address_form.zip, null, {'class': 'form-label'}) }}
+                                                {{ form_widget(address_form.zip, {'attr': {'class': 'form-control'}}) }}
+                                                <small class="form-error" >{{ form_errors(address_form.zip) }}</small>
+                                            </div>
+                                            <div class="mt-2 d-flex justify-content-end mb-4 me-2">
+                                                {{ form_row(address_form.submit, {'label': 'Save changes', 'attr': {'class': 'btn btn-primary me-2'}}) }}
+                                            </div>
 
-                                        <div class="form-outline mb-4">
-                                        <input type="number" id="form6Example6" class="form-control">
-                                        <label class="form-label" for="form6Example6">Phone</label>
+                                        {{ form_end(address_form) }}
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body d-flex justify-content-between">
+                                            <a href="{{ path('app_shopping_cart') }}" ><button type="button" class="btn btn-primary btn-block btn-lg">Shopping Cart</button></a>
+                                            <a href="#" ><button type="button" class="btn btn-primary btn-block btn-lg">Summary</button></a>
                                         </div>
-
-                                        <div class="form-outline mb-4">
-                                        <textarea class="form-control" id="form6Example7" rows="4"></textarea>
-                                        <label class="form-label" for="form6Example7">Additional information</label>
-                                        </div>
-
-                                    </form>
-                                </div>
-                            </div>
-                                <div class="card">
-                                    <div class="card-body d-flex justify-content-between">
-                                        <a href="{{ path('app_shopping_cart') }}" ><button type="button" class="btn btn-primary btn-block btn-lg">Shopping Cart</button></a>
-                                        <a href="#" ><button type="button" class="btn btn-primary btn-block btn-lg">Summary</button></a>
                                     </div>
                                 </div>
                             </div>
