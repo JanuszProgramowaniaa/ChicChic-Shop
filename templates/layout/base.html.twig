@@ -38,9 +38,8 @@
         
 
         {% block javascripts %}
-        <script src="{{ asset('javascript/alert.js') }}" defer> </script>
+            <script src="{{ asset('javascript/layout/_parts/_alert.js') }}" defer> </script>
             {{ encore_entry_script_tags('app') }}
-            
         {% endblock %}
         
     </body>
