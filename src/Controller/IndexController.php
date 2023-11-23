@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ProductRepository;
-use App\Repository\CategoryRepository;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Component\Yaml\Yaml;
@@ -16,11 +15,10 @@ class IndexController extends AbstractController
     /**
      * Displays the home page with sliders with bestsellers and new products from the last month
      * @param ProductRepository $productRepository Product repository
-     * @param CategoryRepository $categoryRepository Category repository
      * @return Response 
      */
     #[Route('/', name: 'app_index')]
-    public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
+    public function index(ProductRepository $productRepository ): Response
     {
    
         $cacheTime = 3600;
