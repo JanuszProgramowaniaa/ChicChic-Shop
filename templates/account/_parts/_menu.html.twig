@@ -1,0 +1,18 @@
+<nav id="sidebar" class="col-md-1 col-lg-1 d-md-block bg-light sidebar p-0">
+    <div class="position-sticky">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link {% if app.request.attributes.get('_route') == 'app_account_index' %}active{% endif %}" href="{{ path('app_account_index') }}">
+                    <i class="bi bi-person"></i>
+                    <span class="nav-text">Account</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if app.request.attributes.get('_route') == 'app_orders' %}active{% endif %}" href="#">
+                    <i class="bi bi-cart"></i>
+                    <span class="nav-text">Orders</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
