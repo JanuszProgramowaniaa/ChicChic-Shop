@@ -167,7 +167,7 @@ class ShoppingCartController extends AbstractController
      * 
      * @return Response
      */
-    #[Route(path: '/cart/addressDelivery', name: 'app_shopping_cart_address-delivery', methods: ['GET'])]
+    #[Route(path: '/cart/addressDelivery', name: 'app_shopping_cart_address_delivery', methods: ['GET'])]
     public function addressDelivery(Request $request, CartManager $cartManager, ProductRepository $productRepository): Response
     {
         return $this->render('cart/address_delivery.html.twig', []);
