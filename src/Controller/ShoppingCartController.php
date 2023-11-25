@@ -181,7 +181,7 @@ class ShoppingCartController extends AbstractController
         $user = $security->getUser();
 
         if(!$user){
-            $this->addFlash('error', 'To see the delivery address you need to deliver');
+            $this->addFlash('error', 'To see your delivery address, you must be logged in to your account');
             return $this->redirectToRoute('app_shopping_cart');
         }
 
@@ -209,5 +209,42 @@ class ShoppingCartController extends AbstractController
             'address_form' => $form->createView(),]);
 
     }
+
+      /**
+     * @param Request $request
+     * @param CartManager $cartManager
+     * @param ProductRepository $productRepository
+     * 
+     * @return Response
+     */
+    #[Route(path: '/cart/summary', name: 'app_shopping_cart_summary', methods: ['GET'])]
+    public function summary(Request $request, Security $security, AddressRepository $addressRepository, EntityManagerInterface  $entityManager, CartManager $cartManager): Response
+    {
+        $user = $security->getUser();
+
+        if(!$user){
+            $this->addFlash('error', 'To see the delivery address you need to deliver');
+            return $this->redirectToRoute('app_shopping_cart');
+        }
+
+        $cart = $cartManager->getCurrentCart();
+   
+        if (count($cart->getShoppingCartEntry()) == 0) {
+            $this->addFlash('error', 'The shopping cart is empty');
+            return $this->redirectToRoute('app_shopping_cart');
+        }
+
+        $address = $addressRepository->findOneBy(['user' => $user]);
+
+        if(!$address){
+            $this->addFlash('error', 'You must provide a delivery address');
+            return $this->redirectToRoute('app_shopping_cart_address_delivery');
+        }
+
+        return $this->render('cart/summary.html.twig');
+
+    }
+
+
 
 }
