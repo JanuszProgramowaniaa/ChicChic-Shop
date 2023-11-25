@@ -84,6 +84,7 @@ class MenuBuilder
 
             $menu['index']['headerMenu']->addChild('Shopping Cart',  ['uri' => $this->router->generate('app_shopping_cart')]);
             $menu['index']['headerMenu']['Shopping Cart']->addChild('Delivery address',  ['uri' => $this->router->generate('app_shopping_cart_address_delivery')]);
+            $menu['index']['headerMenu']['Shopping Cart']['Delivery address']->addChild('Order Summary',  ['uri' => $this->router->generate('app_shopping_cart_summary')]);
 
             $menu['index']->addChild('category')->setAttribute('class', 'd-none');
             foreach ($categories as $category) {
