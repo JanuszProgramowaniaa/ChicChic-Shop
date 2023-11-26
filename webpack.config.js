@@ -12,6 +12,7 @@ Encore
     .addEntry('account', './assets/styles/account/style.scss')
     .addEntry('about', './assets/styles/aboutUs/style.scss')
     .addEntry('index', './assets/styles/index/_parts/_google_opinion.scss')    
+    .addEntry('summary', './assets/styles/cart/summary.scss')    
     
 
     .splitEntryChunks()

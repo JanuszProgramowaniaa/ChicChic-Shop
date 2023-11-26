@@ -241,7 +241,10 @@ class ShoppingCartController extends AbstractController
             return $this->redirectToRoute('app_shopping_cart_address_delivery');
         }
 
-        return $this->render('cart/summary.html.twig');
+        return $this->render('cart/summary.html.twig',[
+            'address' => $address,
+            'shoppingCart' => $cart
+        ]);
 
     }
 

@@ -50,10 +50,13 @@
                                             <div class="card-header py-3">
                                                 <h5 class="mb-0">Delivery Address</h5>
                                             </div>
-                                            <div class="card-body">
-                                                <p class="lead fw-normal mb-2">John Doe</p>
-                                                <p class="lead fw-normal mb-2">123 Main Street</p>
-                                                <p class="lead fw-normal mb-2">Cityville, CA 12345</p>
+                                           <div class="card-body">
+                                                {% if address.company is not empty %}
+                                                    <p class="lead fw-normal mb-2 company">Company: {{ address.company }}</p>
+                                                {% endif %}
+                                                <p class="lead fw-normal mb-2 person">Person: {{ address.FirstName }} {{ address.LastName }}</p>
+                                                <p class="lead fw-normal mb-2 address">Address: {{ address.address }} {{ address.zip }}</p>
+                                                <p class="lead fw-normal mb-2 phone">Phone: {{ address.phone }}</p>
                                             </div>
                                         </div>
                                         <div class="card">
