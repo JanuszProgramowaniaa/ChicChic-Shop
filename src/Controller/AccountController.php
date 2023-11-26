@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Form\AddressType;
 use App\Entity\Address;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\OrderRepository;
 
 class AccountController extends AbstractController
 {   
@@ -48,4 +49,32 @@ class AccountController extends AbstractController
             'address_form' => $form->createView(),
         ]);
     }
+
+
+    /**
+     * Displays all orders for login user
+     * @param Request $request Handling requests
+     * @param Security $security User authetication object
+     * 
+     * @return Response 
+     */
+    #[Route('/account/orders/{page)', name: 'app_account_orders')]
+    public function orders(Request $request, Security $security, int $page = 1): Response
+    {
+        $user = $security->getUser();
+        
+        if(!$user){
+            $this->addFlash('error', 'You not logged');
+            return $this->redirectToRoute('app_account_orders');
+        }
+        
+        $orders = [];
+        return $this->render('account/orders.html.twig', [
+            'orders' => $orders,
+        ]);
+    }
+
+
+
+
 }
