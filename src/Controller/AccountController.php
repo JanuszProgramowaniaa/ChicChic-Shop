@@ -58,8 +58,8 @@ class AccountController extends AbstractController
      * 
      * @return Response 
      */
-    #[Route('/account/orders/{page)', name: 'app_account_orders')]
-    public function orders(Request $request, Security $security, int $page = 1): Response
+    #[Route('/account/orders/{page}', name: 'app_account_orders')]
+    public function orders(Request $request, Security $security, int $page = 1, OrderRepository $orderRepository): Response
     {
         $user = $security->getUser();
         
@@ -68,7 +68,9 @@ class AccountController extends AbstractController
             return $this->redirectToRoute('app_account_orders');
         }
         
-        $orders = [];
+        $orders = $orderRepository->findAll();
+
+
         return $this->render('account/orders.html.twig', [
             'orders' => $orders,
         ]);

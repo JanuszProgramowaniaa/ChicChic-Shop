@@ -1,13 +1,31 @@
 {% extends 'layout/base.html.twig' %}
+
 {% block title %}Chick Chick Shop - Orders{% endblock %}
 
 {% block content %}
-
     <div class="container-fluid">
         <div class="row">
-            Orders
-
-    
+            {% include 'account/_parts/_menu.html.twig'  %}
+            <main class="col-md-911 ms-sm-auto col-lg-11 px-md-4">
+                <h2 class="mb-4">Orders</h2>
+                
+                {% if orders is not empty %}
+                    {% for order in orders %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Order #{{ order.id }}</h5>
+                                    <p class="card-text">Date Added: {{ order.dateAdded|date('Y-m-d H:i:s') }}</p>
+                                    <p class="card-text">Product Sum: {{ order.productSum }}</p>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No orders found.</p>
+                {% endif %}
+            </div>
         </div>
-    </div>
+    </main>
 {% endblock %}
