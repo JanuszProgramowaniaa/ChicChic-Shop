@@ -42,6 +42,10 @@ class Order
     #[ORM\Column(length: 255)]
     private ?string $zip = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?OrderStatus $orderStatus = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -151,6 +155,18 @@ class Order
     public function setZip(string $zip): static
     {
         $this->zip = $zip;
+
+        return $this;
+    }
+
+    public function getOrderStatus(): ?OrderStatus
+    {
+        return $this->orderStatus;
+    }
+
+    public function setOrderStatus(?OrderStatus $orderStatus): static
+    {
+        $this->orderStatus = $orderStatus;
 
         return $this;
     }

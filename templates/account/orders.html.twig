@@ -16,6 +16,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Order #{{ order.id }}</h5>
                                     <p class="card-text">Date Added: {{ order.dateAdded|date('Y-m-d H:i:s') }}</p>
+                                    <p class="card-text">Order status: {{ order.orderStatus.name }}</p>
                                     <p class="card-text">Product Sum: {{ order.productSum }}</p>
                                 
                                 </div>
