@@ -242,8 +242,7 @@ class ShoppingCartController extends AbstractController
         }
 
         return $this->render('cart/summary.html.twig',[
-            'address' => $address,
-            'shoppingCart' => $cart
+            'address' => $address
         ]);
 
     }

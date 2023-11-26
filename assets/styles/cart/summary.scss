@@ -28,3 +28,49 @@
         color: #9933cc;
     }
 }
+
+.productCart {
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    overflow: hidden;
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.25rem;
+    }
+
+    .lead {
+        font-size: 1rem;
+        font-weight: normal;
+        margin-bottom: 0.5rem;
+    }
+
+    .d-flex {
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn-link {
+        cursor: pointer;
+        color: #007bff;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .fas {
+        font-size: 1rem;
+    }
+
+    .productPrice {
+        font-size: 1.25rem;
+        font-weight: bold;
+        margin: 0;
+    }
+}

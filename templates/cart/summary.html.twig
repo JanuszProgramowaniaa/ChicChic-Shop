@@ -19,33 +19,33 @@
                                         <h5 class="mb-0">Order Details</h5>
                                     </div>
                                     <div class="card-body">
-                                        <div class="row mb-4">
-                                            <div class="col">
-                                                <p class="lead fw-normal mb-2">Product 1</p>
+                                         {% for entry in cart.ShoppingCartEntry %}
+                                            <div class="card rounded-3 mb-4 productCart">
+                                                <div class="card-body p-4 ">
+                                                    <div class="row d-flex justify-content-between align-items-center">
+                                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                                            <img src="{{ asset('images/products/' ~ entry.product.id ~ '.png') }}" alt="{{ entry.product.name }}" class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                                        </div>
+                                                        <div class="col-md-3 col-lg-3 col-xl-3">
+                                                            <p class="lead fw-normal mb-2">{{ entry.product.name|length > 24 ? entry.product.name|slice(0, 24) ~ '…' : entry.product.name }}</p>
+                                                        </div>
+                                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                            <button class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                                <i class="fas fa-minus"></i>
+                                                            </button>
+                                                            {{ entry.quantity }}
+                                                            <button class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                                <i class="fas fa-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                            <h5 class="mb-0 productPrice">{{ entry.getPrice }} PLN</h5>
+                                                        </div>
+                                                       
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col">
-                                                <p class="lead fw-normal mb-2 text-end">Quantity: 2</p>
-                                            </div>
-                                            <div class="col">
-                                                <p class="lead fw-normal mb-2 text-end">Price: $20.00</p>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-4">
-                                            <div class="col">
-                                                <p class="lead fw-normal mb-2">Product 2</p>
-                                            </div>
-                                            <div class="col">
-                                                <p class="lead fw-normal mb-2 text-end">Quantity: 1</p>
-                                            </div>
-                                            <div class="col">
-                                                <p class="lead fw-normal mb-2 text-end">Price: $15.00</p>
-                                            </div>
-                                        </div>
-                                        <div class="card mb-4">
-                                            <div class="card-body p-4 row align-items-center">
-                                                <h3 class='d-flex justify-content-end gap-2 mt-4'>Total: $55.00</h3>
-                                            </div>
-                                        </div>
+                                        {% endfor %}
                                         <div class="card mb-4">
                                             <div class="card-header py-3">
                                                 <h5 class="mb-0">Delivery Address</h5>
@@ -59,6 +59,7 @@
                                                 <p class="lead fw-normal mb-2 phone">Phone: {{ address.phone }}</p>
                                             </div>
                                         </div>
+                                        <h3 class='d-flex justify-content-end gap-2 mt-4'>Total: <span id="productSum">{{cart.productsum}}</span> PLN </h3>
                                         <div class="card">
                                           
                                             <div class="card-body d-flex justify-content-between">
