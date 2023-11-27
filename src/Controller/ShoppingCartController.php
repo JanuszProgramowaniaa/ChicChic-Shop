@@ -210,7 +210,7 @@ class ShoppingCartController extends AbstractController
 
     }
 
-      /**
+    /**
      * @param Request $request
      * @param CartManager $cartManager
      * @param ProductRepository $productRepository
@@ -247,6 +247,40 @@ class ShoppingCartController extends AbstractController
 
     }
 
+    /**
+     * @param Request $request
+     * @param CartManager $cartManager
+     * @param ProductRepository $productRepository
+     * 
+     * @return Response
+     */
+    #[Route(path: '/cart/send', name: 'app_shopping_cart_send', methods: ['GET'])]
+    public function send(Request $request, Security $security, AddressRepository $addressRepository, EntityManagerInterface  $entityManager, CartManager $cartManager): Response
+    {
+        $user = $security->getUser();
 
+        if(!$user){
+            $this->addFlash('error', 'To see the delivery address you need to deliver');
+            return $this->redirectToRoute('app_shopping_cart');
+        }
+
+        $cart = $cartManager->getCurrentCart();
+   
+        if (count($cart->getShoppingCartEntry()) == 0) {
+            $this->addFlash('error', 'The shopping cart is empty');
+            return $this->redirectToRoute('app_shopping_cart');
+        }
+
+        $address = $addressRepository->findOneBy(['user' => $user]);
+
+        if(!$address){
+            $this->addFlash('error', 'You must provide a delivery address');
+            return $this->redirectToRoute('app_shopping_cart_address_delivery');
+        }
+
+
+        return $this->render('cart/send.html.twig',[]);
+
+    } 
 
 }
