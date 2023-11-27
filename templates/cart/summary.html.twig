@@ -52,11 +52,11 @@
                                             </div>
                                            <div class="card-body">
                                                 {% if address.company is not empty %}
-                                                    <p class="lead fw-normal mb-2 company">Company: {{ address.company }}</p>
+                                                    <p class="lead fw-normal mb-2"><b>Company:</b> {{ address.company }}</p>
                                                 {% endif %}
-                                                <p class="lead fw-normal mb-2 person">Person: {{ address.FirstName }} {{ address.LastName }}</p>
-                                                <p class="lead fw-normal mb-2 address">Address: {{ address.address }} {{ address.zip }}</p>
-                                                <p class="lead fw-normal mb-2 phone">Phone: {{ address.phone }}</p>
+                                                <p class="lead fw-normal mb-2"><b>Person:</b> {{ address.FirstName }} {{ address.LastName }}</p>
+                                                <p class="lead fw-normal mb-2 "><b>Address:</b> {{ address.address }} {{ address.zip }}</p>
+                                                <p class="lead fw-normal mb-2"><b>Phone:</b> {{ address.phone }}</p>
                                             </div>
                                         </div>
                                         <h3 class='d-flex justify-content-end gap-2 mt-4'>Total: <span id="productSum">{{cart.productsum}}</span> PLN </h3>
