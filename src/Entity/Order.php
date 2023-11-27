@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrderRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -45,6 +47,14 @@ class Order
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?OrderStatus $orderStatus = null;
+
+    #[ORM\OneToMany(mappedBy: 'orderId', targetEntity: OrderEntry::class, orphanRemoval: true)]
+    private Collection $orderEntries;
+
+    public function __construct()
+    {
+        $this->orderEntries = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -167,6 +177,36 @@ class Order
     public function setOrderStatus(?OrderStatus $orderStatus): static
     {
         $this->orderStatus = $orderStatus;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrderEntry>
+     */
+    public function getOrderEntries(): Collection
+    {
+        return $this->orderEntries;
+    }
+
+    public function addOrderEntry(OrderEntry $orderEntry): static
+    {
+        if (!$this->orderEntries->contains($orderEntry)) {
+            $this->orderEntries->add($orderEntry);
+            $orderEntry->setOrderId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderEntry(OrderEntry $orderEntry): static
+    {
+        if ($this->orderEntries->removeElement($orderEntry)) {
+            // set the owning side to null (unless already changed)
+            if ($orderEntry->getOrderId() === $this) {
+                $orderEntry->setOrderId(null);
+            }
+        }
 
         return $this;
     }
