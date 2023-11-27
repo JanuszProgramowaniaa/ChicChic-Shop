@@ -48,7 +48,7 @@ class Order
     #[ORM\JoinColumn(nullable: false)]
     private ?OrderStatus $orderStatus = null;
 
-    #[ORM\OneToMany(mappedBy: 'orderId', targetEntity: OrderEntry::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'orderId', targetEntity: OrderEntry::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $orderEntries;
 
     public function __construct()
@@ -193,7 +193,7 @@ class Order
     {
         if (!$this->orderEntries->contains($orderEntry)) {
             $this->orderEntries->add($orderEntry);
-            $orderEntry->setOrderId($this);
+            $orderEntry->setOrder($this);
         }
 
         return $this;
@@ -203,8 +203,8 @@ class Order
     {
         if ($this->orderEntries->removeElement($orderEntry)) {
             // set the owning side to null (unless already changed)
-            if ($orderEntry->getOrderId() === $this) {
-                $orderEntry->setOrderId(null);
+            if ($orderEntry->getOrder() === $this) {
+                $orderEntry->setOrder(null);
             }
         }
 

@@ -11,10 +11,14 @@ use Symfony\Component\Security\Core\Security;
 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\ShoppingCartEntry;
+use App\Entity\Order;
+use App\Entity\OrderEntry;
+use App\Entity\OrderStatus;
 use App\Repository\ProductRepository;
 use App\Repository\ShoppingCartEntryRepository;
 use App\Repository\UserRepository;
 use App\Repository\AddressRepository;
+use App\Repository\OrderStatusRepository;
 use App\Service\CartManager\CartManager;
 use App\Form\AddressType;
 
@@ -255,7 +259,7 @@ class ShoppingCartController extends AbstractController
      * @return Response
      */
     #[Route(path: '/cart/send', name: 'app_shopping_cart_send', methods: ['GET'])]
-    public function send(Request $request, Security $security, AddressRepository $addressRepository, EntityManagerInterface  $entityManager, CartManager $cartManager): Response
+    public function send(Request $request, Security $security, AddressRepository $addressRepository,OrderStatusRepository $orderStatusRepository, EntityManagerInterface  $entityManager, CartManager $cartManager): Response
     {
         $user = $security->getUser();
 
@@ -277,9 +281,59 @@ class ShoppingCartController extends AbstractController
             $this->addFlash('error', 'You must provide a delivery address');
             return $this->redirectToRoute('app_shopping_cart_address_delivery');
         }
+        
+        $order = new Order();
+        // Order info
+        $order->setProductsum($cart->getProductsum());
+        $order->setDeliverysum($cart->getDeliverysum());
+        $order->setNote($cart->getNote());
+        $order->setDateadded(new \DateTime('now'));
 
+        // Address
+        $address = $cart->getUser()->getAddress();
+        $order->setPerson($address->getFirstname().' '.$address->getLastname());
+        $order->setCompany($address->getCompany());
+        $order->setPhone($address->getPhone());
+        $order->setAddress($address->getAddress());
+        $order->setZip($address->getZip());
+        
+        // Status
+        $order->setOrderstatus($orderStatusRepository->find(OrderStatus::NEW));
 
-        return $this->render('cart/send.html.twig',[]);
+        //  Entries
+        $cartEntries = $cart->getShoppingCartEntry();
+        
+        foreach ($cartEntries as $entry) {
+            $orderEntry = new OrderEntry();
+
+            $orderEntry->setQuantity($entry->getQuantity());
+            $orderEntry->setProduct($entry->getProduct());
+            $orderEntry->setPrice($entry->getPrice());
+                           
+            $order->addOrderEntry($orderEntry);
+        }
+        
+        $entityManager->beginTransaction();
+        
+        try {
+            $entityManager->persist($order);
+            $entityManager->flush();
+        
+            // Pobierz identyfikator koszyka przed usunięciem
+            $cartId = $cart->getId();
+        
+            $entityManager->remove($cart);
+            $entityManager->flush();
+        
+            $entityManager->commit();
+        
+            return $this->render('cart/send.html.twig', ['cartId' => $cartId]);
+        } catch (\Exception $e) {
+            $entityManager->rollback();
+    
+            $this->addFlash('error', 'An error occurred, please try again later');
+            return $this->redirectToRoute('app_shopping_cart');
+        }
 
     } 
 
