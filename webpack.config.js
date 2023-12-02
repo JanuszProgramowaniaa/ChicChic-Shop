@@ -11,7 +11,7 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('account', './assets/styles/account/style.scss')
     .addEntry('about', './assets/styles/aboutUs/style.scss')
-    .addEntry('index', './assets/styles/index/_parts/_google_opinion.scss')    
+    .addEntry('index', './assets/styles/index/index.scss')    
     .addEntry('summary', './assets/styles/cart/summary.scss')    
     
 
