@@ -10,6 +10,8 @@
 
             {% if app.request.attributes.get('_route') == 'app_account_index' or app.request.attributes.get('_route') == 'app_account_orders' %}
                 {{ encore_entry_link_tags('account') }}
+            {% elseif  app.request.attributes.get('_route') == 'app_account_order'  %}
+                {{ encore_entry_link_tags('account_order') }}
             {% elseif  app.request.attributes.get('_route') == 'app_about_index'  %}
                 {{ encore_entry_link_tags('about') }}
             {% elseif  app.request.attributes.get('_route') == 'app_index'  %}

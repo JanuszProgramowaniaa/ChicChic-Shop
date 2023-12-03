@@ -1,7 +1,48 @@
 {% extends 'layout/base.html.twig' %}
 
-{% block title %}Chick Chick Shop - Order{% endblock %}
+{% block title %}Chick Chick Shop - Order Details{% endblock %}
 
 {% block content %}
-   siema
+    <div class="order-details">
+        <div class="order-info">
+            <div class="order-summary">
+                <h1>Order #{{ order.id }}</h1>
+                <p><strong>Date Added:</strong> {{ order.dateAdded|date('Y-m-d') }}</p>
+                <p><strong>Order Status:</strong> {{ order.orderStatus.name }}</p>
+                <p><strong>Product Sum:</strong> {{ order.productSum }}</p>
+                <p><strong>Delivery Sum:</strong> {{ order.deliverySum }}</p>
+                <p><strong>Note:</strong> {{ order.note }}</p>
+            </div>
+
+            <div class="customer-info">
+                <h2>Customer Information</h2>
+                <p><strong>Name:</strong> {{ order.person }}</p>
+                <p><strong>Company:</strong> {{ order.company }}</p>
+                <p><strong>Phone:</strong> {{ order.phone }}</p>
+                <p><strong>Address:</strong> {{ order.address }}, {{ order.zip }}</p>
+            </div>
+        </div>
+
+        <div class="order-entries">
+            <h2>Order Entries</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in order.orderEntries %}
+                        <tr>
+                            <td>{{ entry.product.name }}</td>
+                            <td>{{ entry.quantity }}</td>
+                            <td>{{ entry.price }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
