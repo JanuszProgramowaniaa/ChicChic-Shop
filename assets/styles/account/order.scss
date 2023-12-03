@@ -1,6 +1,6 @@
 .order-details {
     display: flex;
-    flex-direction: column; /* Zmiana kierunku układu na pionowy */
+    flex-direction: column;
     gap: 20px;
   }
   
@@ -19,18 +19,13 @@
   }
   
   .order-summary {
-    /* Dodatkowe style dla sekcji podsumowania zamówienia */
-    /* ... */
-  
     h1 {
       margin-top: 0;
     }
   }
   
   .customer-info {
-    /* Dodatkowe style dla sekcji informacji o kliencie */
-    /* ... */
-  
+ 
     h2 {
       margin-top: 0;
     }
@@ -72,9 +67,8 @@
     }
   }
   
-  /* Dodatkowe style dla ikony */
   .icon {
     font-size: 24px;
     margin-right: 8px;
-    color: #333; /* Kolor ikony */
+    color: #333; 
   }
