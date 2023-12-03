@@ -65,7 +65,7 @@ class AccountController extends AbstractController
         
         if(!$user){
             $this->addFlash('error', 'You not logged');
-            return $this->redirectToRoute('app_account_orders');
+            return $this->redirectToRoute('app_login');
         }
         
         $orders = $orderRepository->findAll();
@@ -76,7 +76,41 @@ class AccountController extends AbstractController
         ]);
     }
 
+   /**
+     * Displays details for a specific order
+     * 
+     * @param Security $security User authetication object
+     * @param Order $order The order entity
+     * 
+     * @return Response
+     * 
+     */
+    #[Route('/account/order/{id}', name: 'app_account_order')]
+    public function orderDetails(Security $security, OrderRepository $orderRepository, int $id = null): Response
+    {
+        $user = $security->getUser();
+        
+        if(!$user){
+            $this->addFlash('error', 'You not logged');
+            return $this->redirectToRoute('app_account_orders');
+        }
 
+        if (empty($id)) {
+            throw $this->createNotFoundException('Order not found');
+            return $this->redirectToRoute('app_account_order');
+        }
+
+        $order = $orderRepository->find($id);
+
+        if (!$order) {
+            throw $this->createNotFoundException('Order not found');
+            return $this->redirectToRoute('app_account_order');
+        }
+
+        return $this->render('account/order.html.twig', [
+            'order' => $order,
+        ]);
+    }
 
 
 }
