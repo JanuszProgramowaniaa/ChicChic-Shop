@@ -36,7 +36,7 @@
                 <tbody>
                     {% for entry in order.orderEntries %}
                         <tr>
-                            <td>{{ entry.product.name }}</td>
+                            <td>   <img src="{{ asset('images/products/' ~ entry.product.id ~ '.png') }}" alt="{{ entry.product.name }}" class="img-fluid rounded-3" alt="Cotton T-shirt"> {{ entry.product.name }}</td>
                             <td>{{ entry.quantity }}</td>
                             <td>{{ entry.price }}</td>
                         </tr>
