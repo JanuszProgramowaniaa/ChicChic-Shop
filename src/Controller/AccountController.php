@@ -59,7 +59,7 @@ class AccountController extends AbstractController
      * @return Response 
      */
     #[Route('/account/orders/{page}', name: 'app_account_orders')]
-    public function orders(Request $request, Security $security, int $page = 1, OrderRepository $orderRepository): Response
+    public function orders(Request $request, Security $security, OrderRepository $orderRepository, int $page = 1): Response
     {
         $user = $security->getUser();
         
@@ -85,7 +85,7 @@ class AccountController extends AbstractController
      * @return Response
      * 
      */
-    #[Route('/account/order/{id}', name: 'app_account_order')]
+    #[Route('/account/order/details/{id}', name: 'app_account_order_details')]
     public function orderDetails(Security $security, OrderRepository $orderRepository, int $id = null): Response
     {
         $user = $security->getUser();
@@ -96,15 +96,15 @@ class AccountController extends AbstractController
         }
 
         if (empty($id)) {
-            throw $this->createNotFoundException('Order not found');
-            return $this->redirectToRoute('app_account_order');
+            $this->addFlash('error', 'Order not found');
+            return $this->redirectToRoute('app_account_orders');
         }
 
         $order = $orderRepository->find($id);
 
         if (!$order) {
-            throw $this->createNotFoundException('Order not found');
-            return $this->redirectToRoute('app_account_order');
+            $this->addFlash('error', 'Order not found');
+            return $this->redirectToRoute('app_account_orders');
         }
 
         return $this->render('account/order.html.twig', [

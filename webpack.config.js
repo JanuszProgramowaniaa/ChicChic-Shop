@@ -10,6 +10,7 @@ Encore
 
     .addEntry('app', './assets/app.js')
     .addEntry('account', './assets/styles/account/style.scss')
+    .addEntry('account_order_details', './assets/styles/account/orderDetails.scss')
     .addEntry('about', './assets/styles/aboutUs/style.scss')
     .addEntry('index', './assets/styles/index/index.scss')    
     .addEntry('summary', './assets/styles/cart/summary.scss')    

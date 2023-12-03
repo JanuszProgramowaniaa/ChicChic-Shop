@@ -8,8 +8,11 @@
             <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
             {{ encore_entry_link_tags('app') }}
 
-            {% if app.request.attributes.get('_route') == 'app_account_index' or app.request.attributes.get('_route') == 'app_account_orders' or app.request.attributes.get('_route') == 'app_account_order' %}
+            {% if app.request.attributes.get('_route') == 'app_account_index' or app.request.attributes.get('_route') == 'app_account_orders' %}
                 {{ encore_entry_link_tags('account') }}
+            {% elseif  app.request.attributes.get('_route') == 'app_account_order_details'  %}
+                {{ encore_entry_link_tags('account') }}
+                {{ encore_entry_link_tags('account_order_details') }}
             {% elseif  app.request.attributes.get('_route') == 'app_about_index'  %}
                 {{ encore_entry_link_tags('about') }}
             {% elseif  app.request.attributes.get('_route') == 'app_index'  %}
@@ -17,6 +20,7 @@
             {% elseif  app.request.attributes.get('_route') == 'app_shopping_cart_summary'  %}
                 {{ encore_entry_link_tags('summary') }}
             {% endif %}
+
             
         {% endblock %}
     
